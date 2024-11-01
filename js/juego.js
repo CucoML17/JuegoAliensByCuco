@@ -852,7 +852,7 @@ function actualizarJuego() {
     ctx.textAlign = 'left'; 
 
     // Si el puntaje alcanza el límite, iniciamos el modo "completado" una vez
-    if (puntaje >= 1 && !yaAcabo) {
+    if (puntaje >= 100 && !yaAcabo) {
         juegoEnPausa = true;
         yaAcabo = true;
         pausarGeneradores();
