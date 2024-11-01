@@ -568,7 +568,7 @@ function crearFilaEnemigos() {
     const espacio = 20;
     const inicioX = Math.floor(Math.random() * (canvas.width - (6 * tamaño + 5 * espacio)));
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 5; i++) {
         const posicionX = inicioX + i * (tamaño + espacio);
 
         if (posicionX + tamaño <= canvas.width) {
