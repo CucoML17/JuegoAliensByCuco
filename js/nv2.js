@@ -128,7 +128,7 @@ const nave = {
 };
 
 
-let tempSpawn1 = 4000; 
+let tempSpawn1 = 5000; 
 let tempBaja1 = 2000; 
 let velocidadEnemigo = 0.8; 
 
