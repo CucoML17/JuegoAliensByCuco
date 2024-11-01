@@ -1247,7 +1247,7 @@ function dibujarDisparosEnemigos() {
 
 //JEFE-----
 let yaIntro = false;
-let tiempoIntro = 5000; 
+let tiempoIntro = 0; 
 
 
 const imagenNaveD = new Image();
@@ -1263,10 +1263,20 @@ const introBoss = new Audio('mp3/introBoss.mp3');
 
 function mostrarIntro() {
 
-    //introBoss.play();
+    introBoss.play();
     pausarGeneradores(); 
     pausarGeneradores2();
     pausarDisparosEnemigos();
+
+                pausarMovimientoJefe();
+                pausarDisparosJefe();
+                pausarMovimientoJefeP1D();
+                pausarMovimientoJefeP2D();
+                pausarMovimientoJefeP1Iz();
+                pausarMovimientoJefeP2Iz();
+                pausarDisparosDesdePatas();
+
+
     if(tiempoIntro==0){
 
 
@@ -1298,7 +1308,14 @@ function mostrarIntro() {
         ctx.drawImage(imgSombra, (canvas.width / 3) * 2 + 40, 200, 250, 400);
     }
     if (tiempoIntro >= 6000) {
-        
+
+                        reanudarMovimientoJefe();
+                reanudarDisparosJefe();
+                reanudarMovimientoJefeP1D();
+                reanudarMovimientoJefeP2D();
+                reanudarMovimientoJefeP1Iz();
+                reanudarMovimientoJefeP2Iz();
+                reanudarDisparosDesdePatas();
         //reanudarGeneradores(); 
         //reanudarGeneradores2();
         //reanudarDisparosEnemigos();
