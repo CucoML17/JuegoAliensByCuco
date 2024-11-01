@@ -1,3 +1,66 @@
+let fps;
+let frameTimes = [];
+
+let masTempoIntro;
+
+function calcularFPS() {
+    let tiempoActual = performance.now();
+
+    if (frameTimes.length > 0) {
+        // Calcula el tiempo entre cuadros
+        let tiempoEntreFrames = tiempoActual - frameTimes[frameTimes.length - 1];
+        fps = 1000 / tiempoEntreFrames; // Convertir a FPS
+    }
+
+    frameTimes.push(tiempoActual);
+
+    if (frameTimes.length > 60) {
+        // Mantén solo los últimos 60 tiempos de cuadro
+        frameTimes.shift();
+    }
+
+    // Imprimir los FPS en la consola
+    //console.log(`FPS: ${Math.round(fps)}`);
+
+    // Llama a esta función en el próximo cuadro
+    requestAnimationFrame(calcularFPS);
+}
+
+// Iniciar el cálculo de FPS
+calcularFPS();
+
+// Iniciar el cálculo de FPS
+
+
+// Puedes usar `fps` para ajustar la velocidad en función de la tasa de refresco
+
+let factorVel = 1;
+
+function ajustarVelocidad() {
+   
+    if (fps < 30) { // Si los FPS son bajos, ralentiza el juego
+        factorVel = 1.5;
+        masTempoIntro=0;
+        //console.log("Hmm1");
+    } else if (fps >= 100) { // Si los FPS son altos, ajusta la velocidad
+        factorVel = 0.7;
+        masTempoIntro=4000;
+        //console.log("Hmm2");
+    } else {
+        factorVel = 1; // FPS normales
+        masTempoIntro=0;
+        //console.log("Hmm3");
+    }
+}
+
+// Llama a `ajustarVelocidad` regularmente para ajustar el factor de velocidad
+setInterval(ajustarVelocidad, 500); // Ajusta cada segundo
+
+
+
+
+
+
 const params = new URLSearchParams(window.location.search);
 const dineroActL = parseInt(params.get("dinero"));
 const vidaL = parseInt(params.get("vida"));
@@ -70,7 +133,7 @@ const nave = {
     y: canvas.height - 70,
     width: 60,
     height: 60,
-    speed: 4 
+    speed: 4*factorVel
 };
 
 
@@ -602,7 +665,7 @@ function crearDisparo() {
 
 function moverDisparos() {
     disparos.forEach((disparo, index) => {
-        disparo.y -= 7;
+        disparo.y -= 7*factorVel;
         if (disparo.y < 0) disparos.splice(index, 1);
     });
 }
@@ -1307,7 +1370,7 @@ function mostrarIntro() {
         ctx.drawImage(imagenSolarMoth, (canvas.width / 3) * 2 + 40, 200, 250, 200); 
         ctx.drawImage(imgSombra, (canvas.width / 3) * 2 + 40, 200, 250, 400);
     }
-    if (tiempoIntro >= 6000) {
+    if (tiempoIntro >= 6000+masTempoIntro) {
 
                         reanudarMovimientoJefe();
                 reanudarDisparosJefe();
@@ -1326,7 +1389,7 @@ function mostrarIntro() {
     }
 
     
-    tiempoIntro += 16.67; 
+    tiempoIntro += 16.67*factorVel; 
 
     
     if (!yaIntro) {
@@ -1371,7 +1434,7 @@ function dibujarJefe() {
 
 
 function moverJefe() {
-    posXJefe += velocidadJefe * direccionJefe;
+    posXJefe += velocidadJefe*factorVel * direccionJefe;
 
     
     if (posXJefe + 400 >= canvas.width || posXJefe <= 300-150) { 
@@ -1427,7 +1490,7 @@ function crearDisparoJefe() {
 
 function moverDisparosJefe() {
     disparosJefe.forEach((disparo, index) => {
-        disparo.y += velocidadDisparoJefe; 
+        disparo.y += velocidadDisparoJefe*factorVel; 
 
         
         if (disparo.y > canvas.height) {
@@ -1521,7 +1584,7 @@ function dibujarJefeP1D() {
 
 
 function moverJefeP1D() {
-    posXJefeP1D += velocidadJefeP1D * direccionJefeP1D;
+    posXJefeP1D += velocidadJefeP1D*velocidadJefe * direccionJefeP1D;
 
     
     if (posXJefeP1D + 300 >= canvas.width || posXJefeP1D <= 400-150) { 
@@ -1586,7 +1649,7 @@ function dibujarJefeP2D() {
 
 
 function moverJefeP2D() {
-    posXJefeP2D += velocidadJefeP2D * direccionJefeP2D;
+    posXJefeP2D += velocidadJefeP2D*velocidadJefe * direccionJefeP2D;
 
     
     if (posXJefeP2D + 200 >= canvas.width || posXJefeP2D <= 500-150) { 
@@ -1653,7 +1716,7 @@ function dibujarJefeP1Iz() {
 
 
 function moverJefeP1Iz() {
-    posXJefeP1Iz += velocidadJefeP1Iz * direccionJefeP1Iz;
+    posXJefeP1Iz += velocidadJefeP1Iz*velocidadJefe * direccionJefeP1Iz;
 
     
     if (posXJefeP1Iz + 500 >= canvas.width || posXJefeP1Iz <= 200-150) { 
@@ -1721,7 +1784,7 @@ function dibujarJefeP2Iz() {
 
 
 function moverJefeP2Iz() {
-    posXJefeP2Iz += velocidadJefeP2Iz * direccionJefeP2Iz;
+    posXJefeP2Iz += velocidadJefeP2Iz*velocidadJefe * direccionJefeP2Iz;
 
     
     if (posXJefeP2Iz + 600 >= canvas.width || posXJefeP2Iz <= 100-150) { 
@@ -1813,7 +1876,7 @@ function crearDisparoDesdePata(pata, posX, posY, estaVida) {
         } else {
             clearInterval(intervaloRafaga); 
         }
-    }, intervaloEntreRafagas);
+    }, intervaloEntreRafagas*factorVel);
 }
 
 
@@ -1821,7 +1884,7 @@ function moverDisparosJefePatas(disparosPata, estaVida) {
     //if (!estaVida) return;
 
     disparosPata.forEach((disparo, index) => {
-        disparo.y += velocidadDisparoJefePatas; 
+        disparo.y += velocidadDisparoJefePatas*velocidadJefe; 
 
         if (disparo.y - disparo.radio > canvas.height) {
             
