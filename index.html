@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Juego</title>
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="titulo">SOLAR <br> DEFENDER</div>
+    <br>
+    <br>
+    <div class="carta">
+        <button id="jugar" class="boton">Jugar</button>
+        <br><br>
+        <button id="comoJugar" class="boton">¿Cómo jugar?</button>
+    </div>
+    <canvas id="miCanvas"></canvas>
+
+
+    <!-- modales -->
+    <div id="modalComoJugar" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-seccion-70">
+                <h1>¿Cómo Jugar?</h1>
+                
+                <h2>Controles</h2>
+                <p>Te mueves solo izquierda a derecha con las flechas del teclado.</p>
+                <p>Disparas con la tecla espacio.</p>
+
+                <h2>Objetivo por nivel</h2>
+                <p>Por cada nivel debes alcanzar un puntaje para completarlo, obtienes puntos por matar enemigos. <br>
+                    Cuidado: hay enemigos que valen más puntaje que otros.
+                </p>
+
+                <h2>¿Cómo pierdes?</h2>
+                <p>Tienes un total de 5 vidas, pierdes el juego si tus vidas llegan a 0.</p>
+                <p>Pierdes una vida por cada enemigo que golpee tu nave o llegue hasta abajo de la pantalla (se escapa).</p>
+
+                <h2>La tienda</h2>
+                <p>Durante el transcurso de un nivel puedes presionar la tecla "T" esto pausará el juego y abrirá una tienda donde puede comprar mejoras o vidas.</p>
+    
+                <p>Al comienzo de cada nivel obtienes 100 de dinero, cada punto ganado al matar enemigos también es 1$.</p>
+
+                <p style="color: rgb(252, 166, 166);">Importante: Cuando escuches una alarma ten cuidado, una gran horda de enemigos se aproximará</p>
+                <p style="color:    rgb(252, 166, 166);">La tienda: No te hagas el valiente, siempre intenta comprar todas las mejoras de la tienda (cada que mueres la tienda y tu dinero se reinicia, cuidado)</p>
+
+                <!-- Más texto y detalles pueden agregarse aquí -->
+            </div>
+            <div class="modal-seccion-30">
+                <img id="imagenInstrucciones" src="img/ayuda.png" alt="Instrucciones">
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="js/menu.js"></script> <!-- Tu archivo JS -->
+</body>
+</html>
