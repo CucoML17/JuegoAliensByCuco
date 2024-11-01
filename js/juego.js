@@ -796,7 +796,7 @@ function actualizarJuego() {
     ctx.textAlign = 'left'; 
 
     
-    if (puntaje >= 100 && !yaAcabo) {
+    if (puntaje >= 1 && !yaAcabo) {
         juegoEnPausa = true;
         yaAcabo = true;
         pausarGeneradores();
