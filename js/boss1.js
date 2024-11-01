@@ -149,7 +149,7 @@ function dibujarPuntaje() {
     ctx.fillStyle = '#fff';
     ctx.fillText(`Puntaje: ${puntaje}`, 10, 30);
     ctx.font = '16px Arial';
-    ctx.fillText(`Puntaje necesario: 200`, 10, 60);
+    ctx.fillText(`Objetivo: Mata esa polilla`, 10, 60);
 }
 
 
