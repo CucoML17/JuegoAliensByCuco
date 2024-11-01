@@ -1,3 +1,57 @@
+let fps;
+let frameTimes = [];
+
+function calcularFPS() {
+    let tiempoActual = performance.now();
+
+    if (frameTimes.length > 0) {
+        // Calcula el tiempo entre cuadros
+        let tiempoEntreFrames = tiempoActual - frameTimes[frameTimes.length - 1];
+        fps = 1000 / tiempoEntreFrames; // Convertir a FPS
+    }
+
+    frameTimes.push(tiempoActual);
+
+    if (frameTimes.length > 60) {
+        // Mantén solo los últimos 60 tiempos de cuadro
+        frameTimes.shift();
+    }
+
+    // Imprimir los FPS en la consola
+    //console.log(`FPS: ${Math.round(fps)}`);
+
+    // Llama a esta función en el próximo cuadro
+    requestAnimationFrame(calcularFPS);
+}
+
+// Iniciar el cálculo de FPS
+calcularFPS();
+
+// Iniciar el cálculo de FPS
+
+
+// Puedes usar `fps` para ajustar la velocidad en función de la tasa de refresco
+
+let factorVel = 1;
+
+function ajustarVelocidad() {
+   
+    if (fps < 30) { // Si los FPS son bajos, ralentiza el juego
+        factorVel = 1.5;
+        //console.log("Hmm1");
+    } else if (fps >= 100) { // Si los FPS son altos, ajusta la velocidad
+        factorVel = 0.7;
+        //console.log("Hmm2");
+    } else {
+        factorVel = 1; // FPS normales
+        //console.log("Hmm3");
+    }
+}
+
+// Llama a `ajustarVelocidad` regularmente para ajustar el factor de velocidad
+setInterval(ajustarVelocidad, 1000); // Ajusta cada segundo
+
+
 const params = new URLSearchParams(window.location.search);
 const dineroActL = parseInt(params.get("dinero"));
 const vidaL = parseInt(params.get("vida"));
@@ -70,7 +124,7 @@ const nave = {
     y: canvas.height - 70,
     width: 60,
     height: 60,
-    speed: 5 
+    speed: 5*factorVel
 };
 
 
@@ -558,7 +612,7 @@ function crearDisparo() {
 
 function moverDisparos() {
     disparos.forEach((disparo, index) => {
-        disparo.y -= 7;
+        disparo.y -= 7*factorVel;
         if (disparo.y < 0) disparos.splice(index, 1);
     });
 }
@@ -605,7 +659,7 @@ const sonidoPerdidaVida = new Audio('mp3/dolor.mp3');
 
 function moverEnemigos() {
     enemigos.forEach((enemigo, index) => {
-        enemigo.y += velocidadEnemigo;
+        enemigo.y += velocidadEnemigo*factorVel;
 
         
         if (enemigo.y > canvas.height) {
@@ -865,7 +919,7 @@ let velocidadDisparoEnemigo = 5;
 let enemigos2 = []; 
 const imagenEnemigo2 = new Image();
 imagenEnemigo2.src = 'img/enemigo2.png'; 
-let velocidadEnemigo2 = 0.6; 
+let velocidadEnemigo2 = 0.4; 
 let temSpawn2 = 5000;
 
 function crearEnemigo2() {
@@ -878,13 +932,13 @@ function crearEnemigo2() {
         width: tamaño,
         height: tamaño,
         eliminado: false,
-        velocidad: Math.random() * 2 + 1 
+        velocidad: (Math.random() * 2 + 1)*factorVel 
     });
 }
 
 function moverEnemigos2() {
     enemigos2.forEach((enemigo, index) => {
-        enemigo.y += velocidadEnemigo2; 
+        enemigo.y += velocidadEnemigo2*factorVel; 
         enemigo.x += (enemigo.velocidad); 
 
         
@@ -921,7 +975,7 @@ function crearDisparoEnemigo(enemigo) {
 
 function moverDisparosEnemigos() {
     disparosEnemigos.forEach((disparo, index) => {
-        disparo.y += velocidadDisparoEnemigo; 
+        disparo.y += velocidadDisparoEnemigo*factorVel; 
 
         
         if (disparo.y > canvas.height) {
@@ -1088,7 +1142,7 @@ function actualizarJuego() {
     ctx.textAlign = 'left'; 
 
     
-    if (puntaje >= 200 && !yaAcabo) {
+    if (puntaje >= 1 && !yaAcabo) {
         juegoEnPausa = true;
         yaAcabo = true;
         pausarGeneradores();
