@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'jefe';
+    src: url('fonts/isaac.ttf') format('truetype'); /* Cambia a tu ruta correcta */
+    /* font-weight: normal;
+    font-style: normal; */
+}
+
+@font-face {
+    font-family: 'espacioso'; /* Cambia esto por el nombre que desees */
+    src: url('fonts/space.otf') format('opentype'); /* Asegúrate de que la ruta sea correcta */
+}

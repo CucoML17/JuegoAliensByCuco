@@ -1,0 +1,179 @@
+@font-face {
+    font-family: 'espacioso'; /* Cambia esto por el nombre que desees */
+    src: url('fonts/space.otf') format('opentype'); /* Asegúrate de que la ruta sea correcta */
+}
+
+body {
+    margin: 0;
+    overflow: hidden; /* Oculta el scroll del canvas */
+}
+
+#miCanvas {
+    position: absolute; /* Asegura que el canvas se mantenga en el fondo */
+    top: 0;
+    left: 0;
+    z-index: 1; /* Asegura que el canvas esté detrás del contenido */
+}
+
+.titulo {
+    text-align: center;
+    background-color: black;
+    position: absolute;
+    top: 20px; /* Margen superior para separar del borde */
+    left: 50%;
+    transform: translateX(-50%); /* Centrar horizontalmente */
+    color: white;
+    font-size: 50px; /* Ajusta el tamaño de la fuente */
+    font-family: 'espacioso'; /* Aplicar la fuente personalizada */
+    text-shadow: 2px 2px 4px yellow; /* Sombra amarilla */
+    z-index: 2; /* Asegura que el título esté sobre el canvas */
+   
+}
+
+
+.carta {
+    position: absolute;
+    top: 150px; /* Ajusta según necesites */
+    left: 50%;
+    transform: translateX(-50%); /* Centrar horizontalmente */
+    background-color: rgba(200, 200, 200, 0.8); /* Fondo gris con un poco de transparencia */
+    border-radius: 10px;
+    width: 35%;
+    height: 50%;
+    padding: 20px;
+    z-index: 2; /* Asegura que la carta esté sobre el canvas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Añadir sombra */
+}
+
+.boton {
+    display: block; /* Cada botón en una nueva línea */
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px auto; /* Centrar los botones */
+    width: 70%; /* Ajusta el tamaño del botón */
+    cursor: pointer;
+    font-size: 18px; /* Ajusta el tamaño de la fuente */
+    transition: background-color 0.3s; /* Efecto de transición */
+}
+
+.boton:hover {
+    background-color: #333; /* Color más claro al pasar el ratón */
+}
+
+
+
+
+
+/* Modal - fondo */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro con transparencia */
+}
+
+/* Contenido del modal */
+/* Contenido del modal con desplazamiento */
+.modal-content {
+    position: relative;
+    width: 60%; /* 60% del ancho de la pantalla */
+    max-height: 80vh; /* Limita el alto a 80% del viewport */
+    overflow-y: auto; /* Activa el desplazamiento vertical */
+    margin: auto;
+    background-color: rgb(57, 57, 57);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    top: 10%;
+}
+
+
+/* Sección del texto (70%) */
+.modal-seccion-70 {
+    width: 70%;
+    padding: 20px;
+}
+
+/* Sección de la imagen (30%) */
+.modal-seccion-30 {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#imagenInstrucciones {
+    max-width: 100%; /* Ajusta al ancho de la sección */
+    height: auto;
+}
+
+/* Estilo del botón de cierre */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+
+
+/* Estilos generales del modal */
+.modal-content h1 {
+    font-size: 2rem;
+    color: #ffffff; /* Color amarillo brillante para el título */
+    text-align: center;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Sombra para destacar el título */
+    font-family: 'espacioso', sans-serif; /* Fuente personalizada */
+}
+
+.modal-content h2 {
+    font-size: 1.5rem;
+    color: #42a5f5; /* Azul brillante para los subtítulos */
+    margin-top: 15px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #dcdcdc; /* Color gris claro para el texto */
+    margin-bottom: 10px;
+    text-indent: 20px; /* Sangría al inicio de cada párrafo */
+    font-family: 'Arial', sans-serif;
+}
+
+.modal-seccion-70 {
+    padding-right: 15px;
+    border-right: 1px solid #757575; /* Borde sutil entre las secciones */
+}
+
+.modal-seccion-30 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 15px;
+}
+
+
+
+/* Botón de cierre del modal */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: #f44336; /* Color rojo para el botón de cierre */
+    cursor: pointer;
+}
+
+/* Efectos hover para el texto */
