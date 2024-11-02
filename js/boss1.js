@@ -149,7 +149,7 @@ function dibujarPuntaje() {
     ctx.fillStyle = '#fff';
     ctx.fillText(`Puntaje: ${puntaje}`, 10, 30);
     ctx.font = '16px Arial';
-    ctx.fillText(`Objetivo: Mata esa polilla`, 10, 60);
+    ctx.fillText(`Puntaje necesario: 200`, 10, 60);
 }
 
 
@@ -1584,7 +1584,7 @@ function dibujarJefeP1D() {
 
 
 function moverJefeP1D() {
-    posXJefeP1D += velocidadJefeP1D*velocidadJefe * direccionJefeP1D;
+    posXJefeP1D += velocidadJefeP1D*factorVel * direccionJefeP1D;
 
     
     if (posXJefeP1D + 300 >= canvas.width || posXJefeP1D <= 400-150) { 
@@ -1649,7 +1649,7 @@ function dibujarJefeP2D() {
 
 
 function moverJefeP2D() {
-    posXJefeP2D += velocidadJefeP2D*velocidadJefe * direccionJefeP2D;
+    posXJefeP2D += velocidadJefeP2D*factorVel * direccionJefeP2D;
 
     
     if (posXJefeP2D + 200 >= canvas.width || posXJefeP2D <= 500-150) { 
@@ -1716,7 +1716,7 @@ function dibujarJefeP1Iz() {
 
 
 function moverJefeP1Iz() {
-    posXJefeP1Iz += velocidadJefeP1Iz*velocidadJefe * direccionJefeP1Iz;
+    posXJefeP1Iz += velocidadJefeP1Iz*factorVel * direccionJefeP1Iz;
 
     
     if (posXJefeP1Iz + 500 >= canvas.width || posXJefeP1Iz <= 200-150) { 
@@ -1784,7 +1784,7 @@ function dibujarJefeP2Iz() {
 
 
 function moverJefeP2Iz() {
-    posXJefeP2Iz += velocidadJefeP2Iz*velocidadJefe * direccionJefeP2Iz;
+    posXJefeP2Iz += velocidadJefeP2Iz*factorVel * direccionJefeP2Iz;
 
     
     if (posXJefeP2Iz + 600 >= canvas.width || posXJefeP2Iz <= 100-150) { 
@@ -1884,7 +1884,7 @@ function moverDisparosJefePatas(disparosPata, estaVida) {
     //if (!estaVida) return;
 
     disparosPata.forEach((disparo, index) => {
-        disparo.y += velocidadDisparoJefePatas*velocidadJefe; 
+        disparo.y += velocidadDisparoJefePatas*factorVel; 
 
         if (disparo.y - disparo.radio > canvas.height) {
             
