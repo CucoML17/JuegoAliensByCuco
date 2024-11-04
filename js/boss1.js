@@ -1409,7 +1409,7 @@ function mostrarIntro() {
 
 
 
-let vidaJefe = 300; 
+let vidaJefe = 150; 
 let velocidadJefe = 4; 
 let posXJefe = canvas.width / 2; 
 let posYJefe = -170; 
@@ -1558,7 +1558,7 @@ iniciarDisparosJefe();
 
 
 //PATAS ---------------------------------------------------------------------------------
-let vidaJefeP1D = 150; 
+let vidaJefeP1D = 50; 
 let velocidadJefeP1D = 4; 
 let posXJefeP1D = canvas.width / 2+100; 
 let posYJefeP1D = -70; 
@@ -1623,7 +1623,7 @@ function actualizarJuego() {
 
 
 
-let vidaJefeP2D = 150; 
+let vidaJefeP2D = 50; 
 let velocidadJefeP2D = 4; 
 let posXJefeP2D = canvas.width / 2+200; 
 let posYJefeP2D = -170; 
@@ -1690,7 +1690,7 @@ function actualizarJuego() {
 
 
 
-let vidaJefeP1Iz = 150; 
+let vidaJefeP1Iz = 50; 
 let velocidadJefeP1Iz = 4; 
 let posXJefeP1Iz = canvas.width / 2-100; 
 let posYJefeP1Iz = -70; 
@@ -1758,7 +1758,7 @@ function actualizarJuego() {
 
 
 
-let vidaJefeP2Iz = 150; 
+let vidaJefeP2Iz = 50; 
 let velocidadJefeP2Iz = 4; 
 let posXJefeP2Iz = canvas.width / 2-200; 
 let posYJefeP2Iz = -170; 
