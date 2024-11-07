@@ -927,13 +927,17 @@ function mostrarPantallaFin() {
 
 
 function reiniciarJuego(event) {
-    if (event.key === 'z' && juegoEnPausa) {
+    // Convertir la tecla a minúsculas
+    const tecla = event.key.toLowerCase();
+    
+    if (tecla === 'z' && juegoEnPausa) {
         location.reload(); 
     }
-    if (event.key === 'x' && juegoEnPausa) {
+    if (tecla === 'x' && juegoEnPausa) {
         location.replace("index.html");
     }
 }
+
 
 
 
