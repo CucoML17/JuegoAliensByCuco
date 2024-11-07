@@ -53,14 +53,7 @@ setInterval(ajustarVelocidad, 1000); // Ajusta cada segundo
 
 
 
-//let factorVel =0.5;
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
 
-function ajustarCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
 
 //Los hilos tipo processing
 const sonidoFinJuego = new Audio('mp3/fin.mp3'); // Cambia la ruta a la correcta
@@ -124,8 +117,7 @@ let tempBaja1 = 2000; // Intervalo de bajada de enemigos en milisegundos (2 segu
 let velocidadEnemigo = 1; // Velocidad de movimiento descendente de los enemigos
 
 // Puntaje---------------
-let puntaje = 0;
-let dineroAct = 100;
+
 function dibujarPuntaje() {
     ctx.font = '26px Arial';
     ctx.fillStyle = '#fff';
@@ -135,33 +127,80 @@ function dibujarPuntaje() {
 }
 
 // VIDA--------------
-let vida = 5;
-const imagenVida = new Image();
-imagenVida.src = 'img/cora.png'; // Coloca aquí la ruta de tu imagen
-function dibujarVidas() {
-    ctx.font = '26px Arial';
-    ctx.fillStyle = '#fff';
-    ctx.fillText('Vida', canvas.width - 100, canvas.height - 60); // Título
 
-    const espacioEntreVidas = 25; // Espacio entre los corazones
-    const anchoVida = 20; // Ancho de cada corazón
-    const maxVidasPorFila = 5; // Número máximo de vidas por fila
-    let fila = 0; // Contador de filas
+//FIN VIDA
 
-    for (let i = 0; i < vida; i++) {
-        // Calcular la posición X y Y de cada corazón
-        const x = canvas.width - 150 + (i % maxVidasPorFila) * espacioEntreVidas; // X
-        const y = canvas.height - 30 + fila * (anchoVida + 10); // Y
 
-        // Si i excede el número de vidas por fila, incrementamos la fila
-        if (i > 0 && i % maxVidasPorFila === 0) {
-            fila++;
-        }
-
-        // Dibuja el corazón en la posición calculada
-        ctx.drawImage(imagenVida, x, y-20, anchoVida, anchoVida);
+//MODAL GANASTE
+// Función para abrir el modal con animación
+function abrirModalFin() {
+    const overlay = document.getElementById('modalOverlayFin');
+    const content = document.getElementById('modalContentFin');
+    
+    // Verificamos si los elementos existen antes de intentar manipularlos
+    if (overlay && content) {
+        overlay.classList.add('show');   // Añadir la clase 'show' al overlay para mostrarlo
+        content.classList.add('show');   // Añadir la clase 'show' al contenido del modal para mostrarlo
+    } else {
+        console.error('No se pudo encontrar el modal o su contenido.');
     }
 }
+
+
+
+// Función para ocultar el modal con animación
+function ocultarModalFin() {
+    const overlay = document.getElementById('modalOverlayFin');
+    const content = document.getElementById('modalContentFin');
+    
+    content.classList.remove('show'); // Quita la clase 'show' del contenido para animación de salida
+    overlay.classList.remove('show'); // Quita la clase 'show' del overlay
+
+    setTimeout(() => {
+        overlay.style.display = 'none'; // Después de la transición, oculta el modal
+    }, 500); // Asegúrate de que este tiempo coincida con la duración de la animación
+}
+
+// Eventos de los botones
+function volverAlMenuFin() {
+    console.log("Volver al menú presionado");
+    ocultarModalFin();
+    
+    // Obtener el texto del botón presionado
+    const boton = event.target; // Captura el botón que disparó el evento
+
+    if (boton.textContent === "Volver al menú") {
+        window.location.href = "index.html"; // Redirigir al menú principal
+    } 
+}
+
+function siguienteNivelFin() {
+    console.log("Siguiente nivel presionado");
+    ocultarModalFin();
+
+    // Obtener el texto del botón presionado
+    const boton = event.target; // Captura el botón que disparó el evento
+
+    if (boton.textContent === "Siguiente nivel") {
+        const data = {
+            dinero: dineroAct,
+            vida: vida,
+            numBalas: numMaxBalas,
+            velRecarga: velRecarga,
+            mejorRecar: mejorRecar,
+            rafa: rafa,
+            nvAct: 2
+        };
+
+        const encodedData = btoa(JSON.stringify(data));
+
+        // Redirigir a la nueva URL con los datos encriptados
+        const url = `nivel2.html?data=${encodedData}`;
+        window.location.href = url;
+    }
+}
+
+//fin modal ganaste
 
 
 
@@ -213,187 +252,37 @@ function dibujarMunicion() {
 
 
 
-//TIENDA
-let mejorRecar=0;
-canvas.addEventListener('mousedown', manejarClick);
 
-function manejarClick(event) {
-    const mouseX = event.offsetX;
-    const mouseY = event.offsetY;
 
-    // Dibuja los botones de la tienda para verificar en cuál se hizo clic
-    const botones = ["Munición", "Reparar", "Recarga", "Rafaga"];
-    const espacioEntreBotones = 10;
-    const anchoBoton = 100;
-    const yBoton = 100;
 
-    botones.forEach((texto, i) => {
-        const x = (canvas.width - (anchoBoton * botones.length + espacioEntreBotones * (botones.length - 1))) / 2 + i * (anchoBoton + espacioEntreBotones);
-        
-        // Verifica si el mouse está sobre el botón
-        const estaSobreBoton = mouseX >= x && mouseX <= x + anchoBoton && mouseY >= yBoton && mouseY <= yBoton + 40;
-
-        if (estaSobreBoton) {
-            if (texto === "Munición") {
-                // Lógica para el botón Munición
-                if (dineroAct >= 50 && numMaxBalas < 6) {
-                    dineroAct -= 50; // Descuenta el dinero
-                    numMaxBalas += 1; // Incrementa el número máximo de balas
-                    console.log("Compraste una mejora de munición");
-                    ctx.fillStyle = 'yellow'; // Color de fondo
-                    ctx.fillRect(10, 10, 150, 30); // Rectángulo para el fondo
-                
-                    // Dibuja el texto de dinero
-                    ctx.fillStyle = 'black'; // Color del texto
-                    ctx.font = '16px Arial'; // Estilo de fuente
-                    ctx.fillText("Dinero: $" + dineroAct, 15, 30);                    
-                } else {
-                    console.log("No tienes suficiente dinero o el máximo de balas ya se ha alcanzado.");
-                }
+function manejarTecla(event) {
+    if (event.key === 'T' || event.key === 't') {
+        if (gameOver == false && yaAcabo==false) {
+            if (enTienda) {
+                // Cerrar la tienda
+                enTienda = false; // Vuelve al estado anterior del juego
+                juegoEnPausa = false; // Reinicia el juego
+                reanudarGeneradores(); // Reinicia los generadores
+                cerrarModal();
+                requestAnimationFrame(actualizarJuego); // Continúa el juego
+            } else {
+                // Abrir la tienda
+                enTienda = true; // Abre el menú de la tienda
+                juegoEnPausa = true; // Pausa el juego
+                pausarGeneradores(); // Detiene los generadores
+                abrirModal();
+                requestAnimationFrame(actualizarJuego); // Muestra el menú de la tienda
             }
-            if (texto === "Reparar") {
-                // Lógica para el botón Munición
-                if (dineroAct >= 25 && vida < 9) {
-                    dineroAct -= 25; // Descuenta el dinero
-                    vida += 1; // Incrementa el número máximo de balas
-                    console.log("Compraste una mejora de munición");
-                    ctx.fillStyle = 'yellow'; // Color de fondo
-                    ctx.fillRect(10, 10, 150, 30); // Rectángulo para el fondo
-                
-                    // Dibuja el texto de dinero
-                    ctx.fillStyle = 'black'; // Color del texto
-                    ctx.font = '16px Arial'; // Estilo de fuente
-                    ctx.fillText("Dinero: $" + dineroAct, 15, 30);                    
-                } else {
-                    console.log("No tienes suficiente dinero o el máximo de balas ya se ha alcanzado.");
-                }
-            }      
-            
-            if (texto === "Recarga") {
-                // Lógica para el botón Munición
-                if (dineroAct >= 150 && mejorRecar < 3) {
-                    dineroAct -= 150; // Descuenta el dinero
-                    mejorRecar++;
-                    velRecarga=velRecarga-125;
-                    cambiarVelRecarga(velRecarga)
-                    console.log("Compraste una mejora de munición");
-                    ctx.fillStyle = 'yellow'; // Color de fondo
-                    ctx.fillRect(10, 10, 150, 30); // Rectángulo para el fondo
-                
-                    // Dibuja el texto de dinero
-                    ctx.fillStyle = 'black'; // Color del texto
-                    ctx.font = '16px Arial'; // Estilo de fuente
-                    ctx.fillText("Dinero: $" + dineroAct, 15, 30);                    
-                } else {
-                    console.log("No tienes suficiente dinero o el máximo de balas ya se ha alcanzado.");
-                }
-            }        
-            
-            if (texto === "Rafaga") {
-                // Lógica para el botón Munición
-                if (dineroAct >= 200 && rafa < 3) {
-                    dineroAct -= 200; // Descuenta el dinero
-                    
-                    rafa=rafa+1;
-                    
-                    console.log("Compraste una mejora de munición");
-                    ctx.fillStyle = 'yellow'; // Color de fondo
-                    ctx.fillRect(10, 10, 150, 30); // Rectángulo para el fondo
-                
-                    // Dibuja el texto de dinero
-                    ctx.fillStyle = 'black'; // Color del texto
-                    ctx.font = '16px Arial'; // Estilo de fuente
-                    ctx.fillText("Dinero: $" + dineroAct, 15, 30);                    
-                } else {
-                    console.log("No tienes suficiente dinero o el máximo de balas ya se ha alcanzado.");
-                }
-            }   
-            // Puedes agregar más condiciones aquí para otros botones...
         }
-    });
-}
-
-
-let enTienda = false; 
-
-let botonSeleccionado = null; // Para rastrear qué botón está hovered
-let textoAyuda = ""; // Texto que se mostrará al pasar el ratón sobre un botón
-
-
-function mostrarMenuTienda(mouseX, mouseY) {
-    // Dibuja un rectángulo oscuro en todo el canvas
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; // Color negro con transparencia
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Dibuja el fondo amarillo para el texto de dinero
-    ctx.fillStyle = 'yellow'; // Color de fondo
-    ctx.fillRect(10, 10, 150, 30); // Rectángulo para el fondo
-
-    // Dibuja el texto de dinero
-    ctx.fillStyle = 'black'; // Color del texto
-    ctx.font = '16px Arial'; // Estilo de fuente
-    ctx.fillText("Dinero: $" + dineroAct, 15, 30); // Dibuja el texto
-
-    // Título del menú
-    ctx.fillStyle = 'white'; // Color del texto
-    ctx.font = '24px Arial'; // Estilo de fuente
-    ctx.textAlign = 'center'; // Alinear el texto al centro
-    ctx.fillText("~ Tienda los sueños rotos de Cuco ~", canvas.width / 2, 50); // Título centrado
-
-    // Dibuja los botones de la tienda
-    const botones = ["Munición", "Reparar", "Recarga", "Rafaga"];
-    const espacioEntreBotones = 10;
-    const anchoBoton = 100;
-    const yBoton = 100;
-
-    botones.forEach((texto, i) => {
-        const x = (canvas.width - (anchoBoton * botones.length + espacioEntreBotones * (botones.length - 1))) / 2 + i * (anchoBoton + espacioEntreBotones);
-        
-        // Verifica si el mouse está sobre el botón
-        const estaSobreBoton = mouseX >= x && mouseX <= x + anchoBoton && mouseY >= yBoton && mouseY <= yBoton + 40;
-
-        if (estaSobreBoton) {
-            ctx.fillStyle = 'lightgray'; // Color del botón cuando está hovered
-            botonSeleccionado = texto; // Almacena el texto del botón hovered
-            if(texto==="Munición"){
-                textoAyuda="Aumenta la capacidad de munición (máximo 6). Cuesta $50";
-            }
-            if(texto==="Reparar"){
-                textoAyuda="Recupera un corazón a la nave (máximo 9). Cuesta $25";
-            }
-            
-            if(texto==="Recarga"){
-                textoAyuda="Aumenta tu velocidad de recarga en un 25% (máximo 3 compras). Cuesta $150";
-            }
-            
-            if(texto==="Rafaga"){
-                textoAyuda="Doble tiro! mata dos bichos de un tiro. Cuesta $200";
-            }            
-        } else {
-            ctx.fillStyle = 'white'; // Color del botón normal
-        }
-
-        ctx.fillRect(x, yBoton, anchoBoton, 40); // Dibuja el botón
-        ctx.fillStyle = 'black'; // Color del texto
-        ctx.fillText(texto, x + anchoBoton / 2, yBoton + 25); // Dibuja el texto del botón
-    });
-
-    // Dibuja el texto de ayuda si hay un botón seleccionado
-    if (botonSeleccionado) {
-        ctx.fillStyle = 'white'; // Color de fondo del texto de ayuda
-        ctx.fillRect(canvas.width / 2 - 500, 300, 1000, 40); // Fondo del texto
-        ctx.fillStyle = 'black'; // Color del texto
-        ctx.font = '14px Arial';
-        ctx.fillText(textoAyuda, canvas.width / 2, 325); // Dibuja el texto de ayuda
+    } else if (event.key === 'z' && juegoEnPausa) {
+        // Reiniciar el juego si se está en la pantalla de fin
+        reiniciarJuego(event);
     }
-
-    // Botón para cerrar la tienda
-    ctx.fillStyle = 'white'; // Color del botón
-    ctx.fillRect((canvas.width - 390) / 2, 200, 400, 40); // Botón largo
-    ctx.fillStyle = 'black'; // Color del texto
-    ctx.font = '24px Arial';
-    ctx.fillText("Presiona 'T' para cerrar la tienda", canvas.width / 2, 225); // Mensaje del botón
 }
+
+window.addEventListener('keydown', manejarTecla);
+
+
 
 canvas.addEventListener('mousemove', (event) => {
     if(gameOver==false && complet==false){
@@ -413,39 +302,6 @@ canvas.addEventListener('mousemove', (event) => {
     mostrarMenuTienda(mouseX, mouseY); // Llama a la función con las coordenadas del mouse
     }
 });
-
-
-
-function manejarTecla(event) {
-    if (event.key === 'T' || event.key === 't') {
-        if (gameOver == false) {
-            if (enTienda) {
-                // Cerrar la tienda
-                enTienda = false; // Vuelve al estado anterior del juego
-                juegoEnPausa = false; // Reinicia el juego
-                reanudarGeneradores(); // Reinicia los generadores
-                requestAnimationFrame(actualizarJuego); // Continúa el juego
-            } else {
-                // Abrir la tienda
-                enTienda = true; // Abre el menú de la tienda
-                juegoEnPausa = true; // Pausa el juego
-                pausarGeneradores(); // Detiene los generadores
-                requestAnimationFrame(actualizarJuego); // Muestra el menú de la tienda
-            }
-        }
-    } else if (event.key === 'z' && juegoEnPausa) {
-        // Reiniciar el juego si se está en la pantalla de fin
-        reiniciarJuego(event);
-    }
-}
-
-
-// Escuchar la tecla "T"
-window.addEventListener('keydown', manejarTecla);
-
-//FIN TIENDA
-
-
 
 
 //Completado-------
@@ -524,11 +380,12 @@ canvas.addEventListener("click", (event) => {
         ) {
             if (boton.texto === "Volver al menú") {
          
-                window.location.href = "index.html";
+                //window.location.href = "index.html";
 
             } else if (boton.texto === "Siguiente nivel") {
-                const url = `nivel2.html?dinero=${dineroAct}&vida=${vida}&numBalas=${numMaxBalas}&velRecarga=${velRecarga}&mejorRecar=${mejorRecar}&rafa=${rafa}`;
-                window.location.href = url;
+                //const url = `nivel2.html?dinero=${dineroAct}&vida=${vida}&numBalas=${numMaxBalas}&velRecarga=${velRecarga}&mejorRecar=${mejorRecar}&rafa=${rafa}&nvAct=2`;
+
+                //window.location.href = url;
             }
         }
     });
@@ -566,18 +423,25 @@ document.addEventListener('keyup', (event) => {
 
 // Función para mover la nave en función del estado de teclas
 function moverNave() {
-    if (teclas['ArrowLeft'] && nave.x > 0) {
-        nave.x -= nave.speed*factorVel;
+    // Movimiento a la izquierda con 'ArrowLeft' o 'A'
+    if ((teclas['ArrowLeft'] || teclas['a'] || teclas['A']) && nave.x > 0) {
+        nave.x -= nave.speed * factorVel;
     }
-    if (teclas['ArrowRight'] && nave.x + nave.width < canvas.width) {
-        nave.x += nave.speed*factorVel;
+    // Movimiento a la derecha con 'ArrowRight' o 'D'
+    if ((teclas['ArrowRight'] || teclas['d'] || teclas['D']) && nave.x + nave.width < canvas.width) {
+        nave.x += nave.speed * factorVel;
     }
-    if (teclas[' '] && !teclas.shoot) { // Disparo solo cuando se presiona espacio por primera vez
+    // Disparo con 'Espacio' o 'Enter'
+    if ((teclas[' '] || teclas['Enter']) && !teclas.shoot) {
         crearDisparo();
         teclas.shoot = true;
     }
-    if (!teclas[' ']) teclas.shoot = false; // Resetea el disparo al soltar la tecla
+    // Resetea el disparo al soltar la tecla 'Espacio' o 'Enter'
+    if (!teclas[' '] && !teclas['Enter']) {
+        teclas.shoot = false;
+    }
 }
+
 
 // Crea un disparo desde la nave
 let rafa=0;
@@ -790,7 +654,7 @@ function mostrarPantallaFin() {
     ctx.fillStyle = 'white'; // Color del texto
     ctx.font = '24px Arial'; // Estilo de fuente
     ctx.textAlign = 'center'; // Alinear el texto al centro
-    ctx.fillText('Presiona Z para volver a jugar', canvas.width / 2, canvas.height - 30); // Posición del texto
+    ctx.fillText('Presiona Z para volver a jugar o X para salir', canvas.width / 2, canvas.height - 30); // Posición del texto
 
     // Escuchar la tecla "Z" para reiniciar el juego
     window.addEventListener('keydown', reiniciarJuego);
@@ -800,10 +664,12 @@ function mostrarPantallaFin() {
 // Función para reiniciar el juego
 function reiniciarJuego(event) {
     if (event.key === 'z' && juegoEnPausa) {
-        location.reload(); // Reiniciar la página
+        location.reload(); 
+    }
+    if (event.key === 'x' && juegoEnPausa) {
+        location.replace("index.html");
     }
 }
-
 
 
 
@@ -856,7 +722,16 @@ function actualizarJuego() {
         juegoEnPausa = true;
         yaAcabo = true;
         pausarGeneradores();
-        completado();
+        //completado();
+
+        dibujarNave();
+        dibujarDisparos();
+        dibujarEnemigos();
+        dibujarPuntaje();
+        dibujarVidas();
+        dibujarMunicion();
+        
+        abrirModalFin();
     }
 
     if(yaMas==false && puntaje>50){
@@ -873,6 +748,7 @@ function actualizarJuego() {
         moverDisparos();
         moverEnemigos();
         detectarColision();
+        dibujarDinero();
     }
 
     dibujarNave();
@@ -884,6 +760,7 @@ function actualizarJuego() {
     dibujarMunicion();
 
     if (enTienda && !gameOver && !complet) {
+        
         mostrarMenuTienda(); // Muestra el menú de la tienda
     } else if (gameOver) {
         dibujarNaveMuerte();
@@ -897,4 +774,3 @@ function actualizarJuego() {
 // Inicia el bucle de actualización del juego
 iniciarGeneradores();
 actualizarJuego();
-

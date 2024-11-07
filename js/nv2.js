@@ -52,24 +52,40 @@ function ajustarVelocidad() {
 setInterval(ajustarVelocidad, 1000); // Ajusta cada segundo
 
 
+//const params = new URLSearchParams(window.location.search);
+let dineroActL;
+let vidaL;
+let numMaxBalasL;
+let velRecargaL ;
+let mejorRecarL ;
+let rafaL ;
+let nvLlega ;
+
 const params = new URLSearchParams(window.location.search);
-const dineroActL = parseInt(params.get("dinero"));
-const vidaL = parseInt(params.get("vida"));
-const numMaxBalasL = parseInt(params.get("numBalas"));
-const velRecargaL = parseInt(params.get("velRecarga"));
-const mejorRecarL = parseInt(params.get("mejorRecar"));
-const rafaL = parseInt(params.get("rafa"));
+const encodedData = params.get("data");
+
+if (encodedData) {
+    // Decodificar el Base64 a JSON
+    const decodedData = JSON.parse(atob(encodedData));
+
+    // Ahora puedes acceder a los datos
+     dineroActL = decodedData.dinero;
+     vidaL = decodedData.vida;
+     numMaxBalasL = decodedData.numBalas;
+     velRecargaL = decodedData.velRecarga;
+     mejorRecarL = decodedData.mejorRecar;
+     rafaL = decodedData.rafa;
+     nvLlega = decodedData.nvAct;
+
+    // Usa los datos como necesites
+}
 
 let tempBaja2 = 3000; 
 
+nvActual = parseInt(nvLlega);
+console.log(nvActual);
 
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
 
-function ajustarCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
 
 //Los hilos tipo processing
 const sonidoFinJuego = new Audio('mp3/fin.mp3'); 
@@ -133,8 +149,8 @@ let tempBaja1 = 2000;
 let velocidadEnemigo = 0.8; 
 
 
-let puntaje = 0;
-let dineroAct = dineroActL+100;
+puntaje = 0;
+dineroAct = dineroActL+100;
 function dibujarPuntaje() {
     ctx.font = '26px Arial';
     ctx.fillStyle = '#fff';
@@ -144,32 +160,83 @@ function dibujarPuntaje() {
 }
 
 
-let vida = vidaL;
-const imagenVida = new Image();
-imagenVida.src = 'img/cora.png'; 
-function dibujarVidas() {
-    ctx.font = '26px Arial';
-    ctx.fillStyle = '#fff';
-    ctx.fillText('Vida', canvas.width - 100, canvas.height - 60); 
+vida = vidaL;
 
-    const espacioEntreVidas = 25; 
-    const anchoVida = 20; 
-    const maxVidasPorFila = 5; 
-    let fila = 0; 
 
-    for (let i = 0; i < vida; i++) {
-        
-        const x = canvas.width - 150 + (i % maxVidasPorFila) * espacioEntreVidas; 
-        const y = canvas.height - 30 + fila * (anchoVida + 10); 
 
-        
-        if (i > 0 && i % maxVidasPorFila === 0) {
-            fila++;
-        }
-
-        
-        ctx.drawImage(imagenVida, x, y-20, anchoVida, anchoVida);
+//MODAL GANASTE
+// Función para abrir el modal con animación
+function abrirModalFin() {
+    const overlay = document.getElementById('modalOverlayFin');
+    const content = document.getElementById('modalContentFin');
+    
+    // Verificamos si los elementos existen antes de intentar manipularlos
+    if (overlay && content) {
+        overlay.classList.add('show');   // Añadir la clase 'show' al overlay para mostrarlo
+        content.classList.add('show');   // Añadir la clase 'show' al contenido del modal para mostrarlo
+    } else {
+        console.error('No se pudo encontrar el modal o su contenido.');
     }
+}
+
+
+
+// Función para ocultar el modal con animación
+function ocultarModalFin() {
+    const overlay = document.getElementById('modalOverlayFin');
+    const content = document.getElementById('modalContentFin');
+    
+    content.classList.remove('show'); // Quita la clase 'show' del contenido para animación de salida
+    overlay.classList.remove('show'); // Quita la clase 'show' del overlay
+
+    setTimeout(() => {
+        overlay.style.display = 'none'; // Después de la transición, oculta el modal
+    }, 500); // Asegúrate de que este tiempo coincida con la duración de la animación
+}
+
+// Eventos de los botones
+function volverAlMenuFin() {
+    console.log("Volver al menú presionado");
+    ocultarModalFin();
+    
+    // Obtener el texto del botón presionado
+    const boton = event.target; // Captura el botón que disparó el evento
+
+    if (boton.textContent === "Volver al menú") {
+        window.location.href = "index.html"; // Redirigir al menú principal
+    } 
+}
+
+function siguienteNivelFin() {
+    console.log("Siguiente nivel presionado");
+    ocultarModalFin();
+
+    // Obtener el texto del botón presionado
+    const boton = event.target; // Captura el botón que disparó el evento
+
+    if (boton.textContent === "Siguiente nivel") {
+        const data = {
+            dinero: dineroAct,
+            vida: vida,
+            numBalas: numMaxBalas,
+            velRecarga: velRecarga,
+            mejorRecar: mejorRecar,
+            rafa: rafa,
+            nvAct: 3
+        };
+
+        const encodedData = btoa(JSON.stringify(data));
+
+        // Redirigir a la nueva URL con los datos encriptados
+        const url = `boss1.html?data=${encodedData}`;
+        window.location.href = url;
+    }
+
+    // if (boton.textContent === "Siguiente nivel") {
+    //     const url = `boss1.html?dinero=${dineroAct}&vida=${vida}&numBalas=${numMaxBalas}&velRecarga=${velRecarga}&mejorRecar=${mejorRecar}&rafa=${rafa}&nvAct=3`;
+
+    //     window.location.href = url; // Redirigir al siguiente nivel con parámetros
+    // }
 }
 
 
@@ -221,188 +288,42 @@ function dibujarMunicion() {
 
 
 
+//VARIABLES DE LA TIENDA
+mejorRecar=mejorRecarL;
 
+//FIN DE VARIABLES DE LA TIENDA
 //TIENDA
-let mejorRecar=mejorRecarL;
-canvas.addEventListener('mousedown', manejarClick);
 
-function manejarClick(event) {
-    const mouseX = event.offsetX;
-    const mouseY = event.offsetY;
-
-    
-    const botones = ["Munición", "Reparar", "Recarga", "Rafaga"];
-    const espacioEntreBotones = 10;
-    const anchoBoton = 100;
-    const yBoton = 100;
-
-    botones.forEach((texto, i) => {
-        const x = (canvas.width - (anchoBoton * botones.length + espacioEntreBotones * (botones.length - 1))) / 2 + i * (anchoBoton + espacioEntreBotones);
-        
-        
-        const estaSobreBoton = mouseX >= x && mouseX <= x + anchoBoton && mouseY >= yBoton && mouseY <= yBoton + 40;
-
-        if (estaSobreBoton) {
-            if (texto === "Munición") {
+function manejarTecla(event) {
+    if (event.key === 'T' || event.key === 't') {
+        if (gameOver == false && yaAcabo==false) {
+            if (enTienda) {
                 
-                if (dineroAct >= 50 && numMaxBalas < 6) {
-                    dineroAct -= 50; 
-                    numMaxBalas += 1; 
-                    console.log("Compraste una mejora de munición");
-                    ctx.fillStyle = 'yellow'; 
-                    ctx.fillRect(10, 10, 150, 30); 
+                enTienda = false; 
+                juegoEnPausa = false; 
+                reanudarGeneradores(); 
+                reanudarGeneradores2();
+                reanudarDisparosEnemigos();
+                cerrarModal();
+                requestAnimationFrame(actualizarJuego); 
+            } else {
                 
-                    
-                    ctx.fillStyle = 'black'; 
-                    ctx.font = '16px Arial'; 
-                    ctx.fillText("Dinero: $" + dineroAct, 15, 30);                    
-                } else {
-                    console.log("No tienes suficiente dinero o el máximo de balas ya se ha alcanzado.");
-                }
+                enTienda = true; 
+                juegoEnPausa = true; 
+                pausarGeneradores(); 
+                pausarGeneradores2();
+                pausarDisparosEnemigos();
+                abrirModal();
+                requestAnimationFrame(actualizarJuego); 
             }
-            if (texto === "Reparar") {
-                
-                if (dineroAct >= 25 && vida < 9) {
-                    dineroAct -= 25; 
-                    vida += 1; 
-                    console.log("Compraste una mejora de munición");
-                    ctx.fillStyle = 'yellow'; 
-                    ctx.fillRect(10, 10, 150, 30); 
-                
-                    
-                    ctx.fillStyle = 'black'; 
-                    ctx.font = '16px Arial'; 
-                    ctx.fillText("Dinero: $" + dineroAct, 15, 30);                    
-                } else {
-                    console.log("No tienes suficiente dinero o el máximo de balas ya se ha alcanzado.");
-                }
-            }      
-            
-            if (texto === "Recarga") {
-                
-                if (dineroAct >= 150 && mejorRecar < 3) {
-                    dineroAct -= 150; 
-                    mejorRecar++;
-                    velRecarga=velRecarga-125;
-                    cambiarVelRecarga(velRecarga)
-                    console.log("Compraste una mejora de munición");
-                    ctx.fillStyle = 'yellow'; 
-                    ctx.fillRect(10, 10, 150, 30); 
-                
-                    
-                    ctx.fillStyle = 'black'; 
-                    ctx.font = '16px Arial'; 
-                    ctx.fillText("Dinero: $" + dineroAct, 15, 30);                    
-                } else {
-                    console.log("No tienes suficiente dinero o el máximo de balas ya se ha alcanzado.");
-                }
-            }        
-            
-            if (texto === "Rafaga") {
-                
-                if (dineroAct >= 200 && rafa < 3) {
-                    dineroAct -= 200; 
-                    
-                    rafa=rafa+1;
-                    
-                    console.log("Compraste una mejora de munición");
-                    ctx.fillStyle = 'yellow'; 
-                    ctx.fillRect(10, 10, 150, 30); 
-                
-                    
-                    ctx.fillStyle = 'black'; 
-                    ctx.font = '16px Arial'; 
-                    ctx.fillText("Dinero: $" + dineroAct, 15, 30);                    
-                } else {
-                    console.log("No tienes suficiente dinero o el máximo de balas ya se ha alcanzado.");
-                }
-            }   
-            
         }
-    });
-}
-
-
-let enTienda = false; 
-
-let botonSeleccionado = null; 
-let textoAyuda = ""; 
-
-
-function mostrarMenuTienda(mouseX, mouseY) {
-    
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; 
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    
-    ctx.fillStyle = 'yellow'; 
-    ctx.fillRect(10, 10, 150, 30); 
-
-    
-    ctx.fillStyle = 'black'; 
-    ctx.font = '16px Arial'; 
-    ctx.fillText("Dinero: $" + dineroAct, 15, 30); 
-
-    
-    ctx.fillStyle = 'white'; 
-    ctx.font = '24px Arial'; 
-    ctx.textAlign = 'center'; 
-    ctx.fillText("~ Tienda los sueños rotos de Cuco ~", canvas.width / 2, 50); 
-
-    
-    const botones = ["Munición", "Reparar", "Recarga", "Rafaga"];
-    const espacioEntreBotones = 10;
-    const anchoBoton = 100;
-    const yBoton = 100;
-
-    botones.forEach((texto, i) => {
-        const x = (canvas.width - (anchoBoton * botones.length + espacioEntreBotones * (botones.length - 1))) / 2 + i * (anchoBoton + espacioEntreBotones);
+    } else if (event.key === 'z' && juegoEnPausa) {
         
-        
-        const estaSobreBoton = mouseX >= x && mouseX <= x + anchoBoton && mouseY >= yBoton && mouseY <= yBoton + 40;
-
-        if (estaSobreBoton) {
-            ctx.fillStyle = 'lightgray'; 
-            botonSeleccionado = texto; 
-            if(texto==="Munición"){
-                textoAyuda="Aumenta la capacidad de munición (máximo 6). Cuesta $50";
-            }
-            if(texto==="Reparar"){
-                textoAyuda="Recupera un corazón a la nave (máximo 9). Cuesta $25";
-            }
-            
-            if(texto==="Recarga"){
-                textoAyuda="Aumenta tu velocidad de recarga en un 25% (máximo 3 compras). Cuesta $150";
-            }
-            
-            if(texto==="Rafaga"){
-                textoAyuda="Doble tiro! mata dos bichos de un tiro. Cuesta $200";
-            }            
-        } else {
-            ctx.fillStyle = 'white'; 
-        }
-
-        ctx.fillRect(x, yBoton, anchoBoton, 40); 
-        ctx.fillStyle = 'black'; 
-        ctx.fillText(texto, x + anchoBoton / 2, yBoton + 25); 
-    });
-
-    
-    if (botonSeleccionado) {
-        ctx.fillStyle = 'white'; 
-        ctx.fillRect(canvas.width / 2 - 500, 300, 1000, 40); 
-        ctx.fillStyle = 'black'; 
-        ctx.font = '14px Arial';
-        ctx.fillText(textoAyuda, canvas.width / 2, 325); 
+        reiniciarJuego(event);
     }
-
-    
-    ctx.fillStyle = 'white'; 
-    ctx.fillRect((canvas.width - 390) / 2, 200, 400, 40); 
-    ctx.fillStyle = 'black'; 
-    ctx.font = '24px Arial';
-    ctx.fillText("Presiona 'T' para cerrar la tienda", canvas.width / 2, 225); 
 }
+
+window.addEventListener('keydown', manejarTecla);
 
 canvas.addEventListener('mousemove', (event) => {
     if(gameOver==false && complet==false){
@@ -415,48 +336,20 @@ canvas.addEventListener('mousemove', (event) => {
     dibujarNave();
     dibujarDisparos();
     dibujarEnemigos();
+
+    dibujarEnemigos2(); 
+    dibujarDisparosEnemigos();
+
+    dibujarExplosiones(); 
     dibujarPuntaje();
     dibujarVidas();
-    dibujarMunicion(); 
+    dibujarMunicion();
+
 
     mostrarMenuTienda(mouseX, mouseY); 
     }
 });
 
-
-
-function manejarTecla(event) {
-    if (event.key === 'T' || event.key === 't') {
-        if (gameOver == false) {
-            if (enTienda) {
-                
-                enTienda = false; 
-                juegoEnPausa = false; 
-                reanudarGeneradores(); 
-                reanudarGeneradores2();
-                reanudarDisparosEnemigos();
-                requestAnimationFrame(actualizarJuego); 
-            } else {
-                
-                enTienda = true; 
-                juegoEnPausa = true; 
-                pausarGeneradores(); 
-                pausarGeneradores2();
-                pausarDisparosEnemigos();
-                requestAnimationFrame(actualizarJuego); 
-            }
-        }
-    } else if (event.key === 'z' && juegoEnPausa) {
-        
-        reiniciarJuego(event);
-    }
-}
-
-
-
-window.addEventListener('keydown', manejarTecla);
-
-//FIN TIENDA
 
 
 
@@ -537,11 +430,12 @@ canvas.addEventListener("click", (event) => {
         ) {
             if (boton.texto === "Volver al menú") {
          
-                window.location.href = "index.html";
+                //window.location.href = "index.html";
 
             } else if (boton.texto === "Siguiente nivel") {
-                const url = `boss1.html?dinero=${dineroAct}&vida=${vida}&numBalas=${numMaxBalas}&velRecarga=${velRecarga}&mejorRecar=${mejorRecar}&rafa=${rafa}`;
-                window.location.href = url;
+                //const url = `boss1.html?dinero=${dineroAct}&vida=${vida}&numBalas=${numMaxBalas}&velRecarga=${velRecarga}&mejorRecar=${mejorRecar}&rafa=${rafa}&nvAct=3`;
+
+                //window.location.href = url;
             }
         }
     });
@@ -579,17 +473,23 @@ document.addEventListener('keyup', (event) => {
 
 
 function moverNave() {
-    if (teclas['ArrowLeft'] && nave.x > 0) {
-        nave.x -= nave.speed;
+    // Movimiento a la izquierda con 'ArrowLeft' o 'A'
+    if ((teclas['ArrowLeft'] || teclas['a'] || teclas['A']) && nave.x > 0) {
+        nave.x -= nave.speed * factorVel;
     }
-    if (teclas['ArrowRight'] && nave.x + nave.width < canvas.width) {
-        nave.x += nave.speed;
+    // Movimiento a la derecha con 'ArrowRight' o 'D'
+    if ((teclas['ArrowRight'] || teclas['d'] || teclas['D']) && nave.x + nave.width < canvas.width) {
+        nave.x += nave.speed * factorVel;
     }
-    if (teclas[' '] && !teclas.shoot) { 
+    // Disparo con 'Espacio' o 'Enter'
+    if ((teclas[' '] || teclas['Enter']) && !teclas.shoot) {
         crearDisparo();
         teclas.shoot = true;
     }
-    if (!teclas[' ']) teclas.shoot = false; 
+    // Resetea el disparo al soltar la tecla 'Espacio' o 'Enter'
+    if (!teclas[' '] && !teclas['Enter']) {
+        teclas.shoot = false;
+    }
 }
 
 
@@ -858,7 +758,7 @@ function mostrarPantallaFin() {
     ctx.fillStyle = 'white'; 
     ctx.font = '24px Arial'; 
     ctx.textAlign = 'center'; 
-    ctx.fillText('Presiona Z para volver a jugar', canvas.width / 2, canvas.height - 30); 
+    ctx.fillText('Presiona Z para volver a jugar o X para salir', canvas.width / 2, canvas.height - 30); 
 
     
     window.addEventListener('keydown', reiniciarJuego);
@@ -869,6 +769,9 @@ function mostrarPantallaFin() {
 function reiniciarJuego(event) {
     if (event.key === 'z' && juegoEnPausa) {
         location.reload(); 
+    }
+    if (event.key === 'x' && juegoEnPausa) {
+        location.replace("index.html");
     }
 }
 
@@ -1146,7 +1049,8 @@ function actualizarJuego() {
         juegoEnPausa = true;
         yaAcabo = true;
         pausarGeneradores();
-        completado();
+        //completado();
+        abrirModalFin();
     }
 
     if(yaMas==false && puntaje>50){
@@ -1178,6 +1082,7 @@ function actualizarJuego() {
         moverEnemigos2(); 
         detectarColision();
         moverDisparosEnemigos(); 
+        dibujarDinero();
         //detectarColisionConDisparosEnemigos();
         
     }
