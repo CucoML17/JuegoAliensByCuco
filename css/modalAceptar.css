@@ -1,0 +1,73 @@
+@font-face {
+    font-family: 'espacioPunto'; /* Nombre de la fuente que vas a usar */
+    src: url('fonts/spacePuntos.ttf') format('truetype'); /* Especificar correctamente el formato */
+}
+
+
+/* Modal - fondo */
+.modal_aceptar {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro con transparencia */
+}
+
+/* Contenido del modal */
+.modal-content_aceptar {
+    font-family: 'espacioPunto';
+    position: relative;
+    width: 40%; /* Ancho del modal */
+    max-height: 50vh; /* Limita el alto a 50% del viewport */
+    margin: auto;
+    top: 20%;
+    background-color: rgb(57, 57, 57);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Título del modal */
+.modal-content_aceptar h2 {
+    font-size: 2.5rem;
+    color: #9ed3ff; /* Azul brillante */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo del botón de volver */
+.boton-volver_aceptar {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #080808;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'neuropol';
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+
+.boton-volver_aceptar:hover {
+    background-color: #525252;
+}
+
+/* Botón de cierre */
+.close_aceptar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    color: #f44336; /* Color rojo */
+    cursor: pointer;
+}

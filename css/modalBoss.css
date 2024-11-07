@@ -1,0 +1,93 @@
+@font-face {
+    font-family: 'isoso'; /* Cambia esto por el nombre que desees */
+    src: url('fonts/isaac.ttf') format('opentype'); /* Asegúrate de que la ruta sea correcta */
+}
+
+
+/* Estilos para el modal */
+.modal-overlay_intro {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #222;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; 
+    transform: scale(0.9); 
+    transition: opacity 0.5s ease, transform 0.5s ease; 
+}
+
+.modal-content_intro {
+    display: flex;
+    justify-content: space-between;
+    width: 90%; /* Ocupar el 90% del ancho de la pantalla */
+    height: 80%; /* Ocupar el 80% de la altura */
+    background-color: #222;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.column_intro {
+    width: 33%; /* Cada columna ocupa un tercio del contenedor */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(20px); /* Comienza ligeramente desplazado */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.imagen_columna_intro {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 1s ease; /* Gradualmente aparecerá */
+}
+
+
+
+.texto_columna_intro {
+    font-size: 45px;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'isoso';
+    margin-bottom: 50px;
+    opacity: 0;  /* Aseguramos que el texto comienza oculto */
+    transition: opacity 1s ease;
+}
+
+
+.imagen-grande_intro {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Imagen pequeña debajo de la imagen principal */
+.imagen-pequeña_intro {
+    width: 40%; /* Ajusta el tamaño a lo que necesites */
+    height: auto;
+    margin-top: -50px; /* Para separar la imagen pequeña de la principal */
+    display: block; /* Para que se muestre como bloque y no se quede en la misma línea */
+    margin-left: auto;
+    margin-right: auto; /* Centrarla dentro de la columna */
+}
+.imagen-pequeña_intro {
+    opacity: 0;  /* Comienza oculta */
+    transition: opacity 1s ease;  /* Animación gradual */
+}
+
+.imagen_columna_intro {
+   
+    width: 60%;  /* Ajusta el tamaño de la imagen */
+    height: auto;
+    display: block;  /* Hace que la imagen sea un bloque */
+    margin: 0 auto;  /* Centra la imagen horizontalmente */
+}

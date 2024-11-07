@@ -1,0 +1,106 @@
+@font-face {
+    font-family: 'espacioso'; /* Cambia esto por el nombre que desees */
+    src: url('fonts/space.otf') format('opentype'); /* Asegúrate de que la ruta sea correcta */
+}
+
+/* Estilos para el modal y el fondo */
+.modal-overlay_fin {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo con opacidad */
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Inicialmente invisible */
+    transform: scale(0.9); /* Reducido al 90% de su tamaño original */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Transiciones suaves */
+    display: flex; /* Cambiado de 'none' a 'flex' */
+    pointer-events: none; /* No se puede hacer clic en el fondo cuando está invisible */
+}
+
+/* Mostrar el modal con animación */
+.modal-overlay_fin.show {
+    opacity: 1; /* Aparece gradualmente */
+    transform: scale(1); /* Escala al tamaño normal */
+    pointer-events: all; /* Habilitar interacción cuando esté visible */
+}
+
+/* Modificar el estilo del contenido del modal */
+.modal-content_fin {
+    width: 85%;
+    height: 85%;
+    background-color: #222121; /* Fondo negro o gris muy oscuro */
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    opacity: 0; /* Inicialmente invisible */
+    transform: translateY(-20px); /* Mover hacia arriba para el efecto de entrada */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Transiciones suaves */
+}
+
+/* Mostrar contenido del modal con animación */
+.modal-content_fin.show {
+    opacity: 1; /* Aparece gradualmente */
+    transform: translateY(0); /* Se posiciona en su lugar original */
+}
+
+.modal-image_fin {
+    width: 100%;
+    max-height: 200px; /* Limitar la altura máxima */
+    object-fit: cover; /* Escalar la imagen manteniendo la proporción */
+    border-radius: 10px 10px 0 0; /* Bordes redondeados en la parte superior */
+}
+
+.modal-message_fin {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
+    font-family: 'espacioso';
+}
+#tuPunta{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 0;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    /* font-family: 'espacioso'; */
+
+}
+.button-container_fin {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.modal-button_fin {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.modal-button_fin:hover {
+    background-color: #555; /* Color gris oscuro */
+    color: white;
+}
+
+.modal-overlay_fin.show {
+    display: flex;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.modal-content_fin.show {
+    opacity: 1;
+    transform: translateY(0);
+}

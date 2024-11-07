@@ -3,6 +3,22 @@
     src: url('fonts/space.otf') format('opentype'); /* Asegúrate de que la ruta sea correcta */
 }
 
+@font-face {
+    font-family: 'espacioPunto'; /* Nombre de la fuente que vas a usar */
+    src: url('fonts/spacePuntos.ttf') format('truetype'); /* Especificar correctamente el formato */
+}
+
+@font-face {
+    font-family: 'neoso'; /* Nombre de la fuente que vas a usar */
+    src: url('fonts/neon.ttf') format('truetype'); /* Especificar correctamente el formato */
+}
+
+@font-face {
+    font-family: 'neuropol'; /* Nombre de la fuente que vas a usar */
+    src: url('fonts/Neuropol.otf') format('opentype'); /* Especificar correctamente el formato */
+}
+
+
 body {
     margin: 0;
     overflow: hidden; /* Oculta el scroll del canvas */
@@ -39,7 +55,7 @@ body {
     background-color: rgba(200, 200, 200, 0.8); /* Fondo gris con un poco de transparencia */
     border-radius: 10px;
     width: 35%;
-    height: 50%;
+    height: 60%;
     padding: 20px;
     z-index: 2; /* Asegura que la carta esté sobre el canvas */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Añadir sombra */
@@ -171,9 +187,61 @@ body {
     position: absolute;
     top: 15px;
     right: 15px;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
+    font-weight: bold;
     color: #f44336; /* Color rojo para el botón de cierre */
     cursor: pointer;
 }
 
 /* Efectos hover para el texto */
+
+
+
+
+/* Estilo para el campo de texto */
+.input-nombre {
+    display: block;
+    width: 80%; /* Ajusta el ancho */
+    padding: 8px;
+    margin: 10px auto; /* Centrar el campo de texto */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Estilo para la etiqueta */
+.label-nombre {
+    display: block;
+    font-size: 24px;
+    color: #232323;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-family: 'espacioPunto';
+    text-align: center; /* Centrar la etiqueta */
+}
+
+/* Estilo para el párrafo "Algo" */
+.texto-algo {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin: 15px 0;
+    
+    color: #070456;
+    font-family: 'espacioPunto';
+}
+
+#nombreJugador{
+    font-family: 'neoso';
+    font-size: 20px;
+    text-align: center;
+
+}
+
+
+.boton{
+    font-family: 'neuropol';
+    font-size: 20px;
+    font-weight: bold;
+
+}
