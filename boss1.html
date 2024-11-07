@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de Nave y Enemigos</title>
+    <link rel="stylesheet" href="css/modaloso.css">
+    <link rel="stylesheet" href="css/finPartida.css">
+    <link rel="stylesheet" href="css/modalBoss.css">
     <style>
         * {
             margin: 0;
@@ -20,7 +23,77 @@
     <link rel="stylesheet" href="css/boss.css">
 </head>
 <body>
+
+
+    <div class="modal-overlay_intro" id="modalOverlayIntro">
+        <div class="modal-content_intro">
+            <div class="columna_intro" id="columna1_intro">
+                <p class="texto_columna_intro">N a v e</p>
+                <img src="img/naveDerecha.png" alt="Imagen 1" class="imagen_columna_intro">
+                <!-- Imagen pequeña añadida -->
+                <img src="img/sombre.png" alt="Imagen pequeña 1" class="imagen-pequeña_intro">
+            </div>
+            <div class="columna_intro" id="columna2_intro">
+                <p class="texto_columna_intro">V S</p>
+            </div>
+            <div class="columna_intro" id="columna3_intro">
+                <p class="texto_columna_intro">S O L A R <br> M O T H</p>
+                <img src="img/jefe.png" alt="Imagen 2" class="imagen_columna_intro">
+                <!-- Imagen pequeña añadida -->
+                <img src="img/sombre.png" alt="Imagen pequeña 2" class="imagen-pequeña_intro">
+            </div>
+        </div>
+    </div>
+    
+
+
+
     <canvas id="gameCanvas"></canvas>
+    <script src="js/globales.js"></script>
     <script src="js/boss1.js"></script>
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <div class="modal-title">~ Tienda los sueños de Cuco ~</div>
+
+            <!-- Contenedor de botones -->
+            <div class="button-container">
+                <button class="modal-button" onmouseover="mostrarTexto('Munición')" onmouseout="ocultarTexto()" onclick="comprar('Munición')">Munición</button>
+                <button class="modal-button" onmouseover="mostrarTexto('Reparar')" onmouseout="ocultarTexto()" onclick="comprar('Reparar')">Reparar</button>
+                <button class="modal-button" onmouseover="mostrarTexto('Recarga')" onmouseout="ocultarTexto()" onclick="comprar('Recarga')">Recarga</button>
+                <button class="modal-button" onmouseover="mostrarTexto('Ráfaga')" onmouseout="ocultarTexto()" onclick="comprar('Rafaga')">Rafaga</button>
+            </div>
+
+            <!-- Texto de ayuda -->
+            
+
+            <!-- Texto de cierre -->
+            <div class="modal-footer">Presiona 'T' para cerrar la tienda</div>
+
+
+            <div class="tooltip" id="tooltip"></div>
+        </div>
+    </div>    
+    
+    
+
+    <div class="modal-overlay_fin" id="modalOverlayFin">
+        <div class="modal-content_fin" id="modalContentFin">
+            <img src="img/nvComplete.png" alt="Imagen de Enemigos" class="modal-image_fin">
+            <p class="modal-message_fin">Felicidades!!!! <br> Has destruido el Sol, ahora, el sistema solar estará a salvo... espera... ¿qué hemos hecho?</p>
+            <br>
+            <p id="tuPunta"></p>
+            <div class="button-container_fin">
+                <button class="modal-button_fin" onclick="volverAlMenuFin()">Subir mi puntaje</button>
+                <!-- <button class="modal-button_fin" onclick="siguienteNivelFin()">Siguiente nivel</button> -->
+            </div>
+        </div>
+    </div>
+
+
+
+ 
+
+    
+
 </body>
 </html>

@@ -17,9 +17,55 @@
         }
         
     </style>
+    <link rel="stylesheet" href="css/modaloso.css">
+    <link rel="stylesheet" href="css/finPartida.css">
 </head>
+
 <body>
+
+
+
+
     <canvas id="gameCanvas"></canvas>
+    <script src="js/globales.js"></script>
     <script src="js/juego.js"></script>
+
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <div class="modal-title">~ Tienda los sueños de Cuco ~</div>
+
+            <!-- Contenedor de botones -->
+            <div class="button-container">
+                <button class="modal-button" onmouseover="mostrarTexto('Munición')" onmouseout="ocultarTexto()" onclick="comprar('Munición')">Munición</button>
+                <button class="modal-button" onmouseover="mostrarTexto('Reparar')" onmouseout="ocultarTexto()" onclick="comprar('Reparar')">Reparar</button>
+                <button class="modal-button" onmouseover="mostrarTexto('Recarga')" onmouseout="ocultarTexto()" onclick="comprar('Recarga')">Recarga</button>
+                <button class="modal-button" onmouseover="mostrarTexto('Ráfaga')" onmouseout="ocultarTexto()" onclick="comprar('Rafaga')">Rafaga</button>
+            </div>
+
+            <!-- Texto de ayuda -->
+            
+
+            <!-- Texto de cierre -->
+            <div class="modal-footer">Presiona 'T' para cerrar la tienda</div>
+
+
+            <div class="tooltip" id="tooltip"></div>
+        </div>
+    </div>   
+    
+
+    
+    <div class="modal-overlay_fin" id="modalOverlayFin">
+        <div class="modal-content_fin" id="modalContentFin">
+            <img src="img/nvComplete.png" alt="Imagen de Enemigos" class="modal-image_fin">
+            <p class="modal-message_fin">Se aproximan más enemigos</p>
+            <div class="button-container_fin">
+                <button class="modal-button_fin" onclick="volverAlMenuFin()">Volver al menú</button>
+                <button class="modal-button_fin" onclick="siguienteNivelFin()">Siguiente nivel</button>
+            </div>
+        </div>
+    </div>
+     
 </body>
 </html>

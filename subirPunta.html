@@ -6,7 +6,8 @@
     <title>Menu Juego</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/modalSelecNivel.css">
-    <link rel="stylesheet" href="css/modalPuntuaciones.css">
+
+    <link rel="stylesheet" href="css/modalAceptar.css">
     <style>
 
     </style>
@@ -16,21 +17,20 @@
     <br>
     <br>
     <div class="carta">
-        <button id="jugar" class="boton">Jugar</button>
-        <br><br>
-        <button id="selecNivel" class="boton">Seleccionar nivel</button>
-        <br><br>
-        <button id="comoJugar" class="boton">¿Cómo jugar?</button>
-
-        <br><br>
-        <button id="btnPuntajes" class="boton">Ver puntajes</button>
+        <form class="formulario">
+            <label for="nombreJugador" class="label-nombre">Nombre del jugador:</label>
+            <input type="text" id="nombreJugador" class="input-nombre" placeholder="Ingresa tu nombre" required>
+            <br>
+            <p class="texto-algo" id="puntoso">Tu tiempo en matar al jefe fue: "00:00:12"</p>
+            
+            <button type="submit" class="boton" id="enviare">Enviar</button>
+        </form>
     </div>
+    
     <canvas id="miCanvas"></canvas>
 
 
-    <!-- Audioso -->
-    <audio id="ostMenu" src="mp3/menuv2.mp3" autoplay></audio>
-
+    <!-- modales -->
     <div id="modalComoJugar" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -64,13 +64,25 @@
                 <p style="color: rgb(252, 166, 166);">Importante: Cuando escuches una alarma ten cuidado, una gran horda de enemigos se aproximará</p>
                 <p style="color:    rgb(252, 166, 166);">La tienda: No te hagas el valiente, siempre intenta comprar todas las mejoras de la tienda (cada que mueres la tienda y tu dinero se reinicia, cuidado)</p>
 
-                
+                <!-- Más texto y detalles pueden agregarse aquí -->
             </div>
             <div class="modal-seccion-30">
                 <img id="imagenInstrucciones" src="img/ayuda.png" alt="Instrucciones">
             </div>
         </div>
     </div>
+
+
+
+
+
+    <audio id="ostVictoria" src="mp3/menu.mp3" autoplay></audio>
+
+
+
+
+
+
 
 
 
@@ -81,112 +93,40 @@
                 ¡Advertencia! si entras a un nivel avanzado comenzarás con el armamento básico, sin dinero y sin mejoras de la tienda o niveles anteriores.
             </p>
             <div class="button-rows_selNv">
+                <!-- Fila 1 de botones -->
                 <div class="button-container_selNv">
                     <button id="btnNv1" class="modal-button_selNv">Nivel 1</button>
                     <button id="btnNv2" class="modal-button_selNv">Nivel 2</button>
                     <button id="btnNv3" class="modal-button_selNv botonJefe">Nivel 3</button>
                 </div>
+                <!-- Fila 2 de botones -->
                 <div class="button-container_selNv">
                     <button class="modal-button_selNv bloqueado">Nivel 4</button>
                     <button class="modal-button_selNv bloqueado">Nivel 5</button>
                     <button class="modal-button_selNv bloqueado">Nivel 6</button>
                 </div>
-            </div>
-            <!-- Botón de cerrar -->
-            <div class="button-container_selNv">
-                <button id="btnCerrar" class="modal-button_selNv botonCerrar">Cerrar</button>
+                <!-- Agrega más filas según sea necesario -->
             </div>
         </div>
     </div>
-    
 
-
-
-    <div id="modal_listaPunta" class="modal_listaPunta">
-        <div class="modal-content_listaPunta">
-            <span class="close_listaPunta" onclick="ocultarModal_listaPunta()">&times;</span>
-            <h2>Los mejores tiempos en derrotar el último nivel</h2>
-            <hr>
-            <div class="tabla-contenedor_listaPunta">
-                <table class="tabla_listaPunta">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Tiempo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Jugador1</td>
-                            <td>00:01:05</td>
-                        </tr>
-                        <tr>
-                            <td>Jugador2</td>
-                            <td>00:02:12</td>
-                        </tr>
-                        <tr>
-                            <td>Jugador2</td>
-                            <td>00:02:12</td>
-                        </tr>
-                        <tr>
-                            <td>Jugador2</td>
-                            <td>00:02:12</td>
-                        </tr>
-                        <tr>
-                            <td>Jugador2</td>
-                            <td>00:02:12</td>
-                        </tr>
-                        <tr>
-                            <td>Jugador2</td>
-                            <td>00:02:12</td>
-                        </tr>
-                        <tr>
-                            <td>Jugador2</td>
-                            <td>00:02:12</td>
-                        </tr>
-                        <tr>
-                            <td>Jugador2</td>
-                            <td>00:02:12</td>
-                        </tr>
-                        <tr>
-                            <td>Jugador2</td>
-                            <td>00:02:12</td>
-                        </tr>
-                        <tr>
-                            <td>Jugador2</td>
-                            <td>00:02:12</td>
-                        </tr>
-                        <tr>
-                            <td>Jugador2</td>
-                            <td>00:02:12</td>
-                        </tr>
-                        <tr>
-                            <td>Jugador2</td>
-                            <td>00:02:12</td>
-                        </tr>
-                        <!-- Más filas aquí -->
-                    </tbody>
-                </table>
-            </div>
-            <button class="boton-volver_listaPunta" onclick="ocultarModal_listaPunta()">Volver</button>
-        </div>
+    <!-- Modal -->
+<div id="modal_aceptar" class="modal_aceptar">
+    <div class="modal-content_aceptar">
+        <span class="close_aceptar">&times;</span>
+        <h2>Puntaje guardado</h2>
+        <button id="boton_volver_aceptar" class="boton-volver_aceptar">Volver</button>
     </div>
-    
-    
-    
+</div>
 
-    <script>
-        function mostrarModal_listaPunta() {
-            document.getElementById("modal_listaPunta").style.display = "block";
-        }
-    
-        function ocultarModal_listaPunta() {
-            document.getElementById("modal_listaPunta").style.display = "none";
-        }
-    </script>
-    
+
+
+
+
     <script type="module" src="js/firebase.js"></script>
-    <script  type="module" src="js/menu.js"></script> 
+    <script  type="module" src="js/menu.js"></script> <!-- Tu archivo JS -->
+    <script  type="module" src="js/subirPuntaje.js"></script>
+
 
 
     <script>
@@ -198,7 +138,5 @@
             audio.play();           
         });
     </script>
-
-
 </body>
 </html>
