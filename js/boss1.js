@@ -7,54 +7,54 @@ function calcularFPS() {
     let tiempoActual = performance.now();
 
     if (frameTimes.length > 0) {
-        // Calcula el tiempo entre cuadros
+        
         let tiempoEntreFrames = tiempoActual - frameTimes[frameTimes.length - 1];
-        fps = 1000 / tiempoEntreFrames; // Convertir a FPS
+        fps = 1000 / tiempoEntreFrames; 
     }
 
     frameTimes.push(tiempoActual);
 
     if (frameTimes.length > 60) {
-        // Mantén solo los últimos 60 tiempos de cuadro
+        
         frameTimes.shift();
     }
 
-    // Imprimir los FPS en la consola
+    
     //console.log(`FPS: ${Math.round(fps)}`);
 
-    // Llama a esta función en el próximo cuadro
+    
     requestAnimationFrame(calcularFPS);
 }
 
-// Iniciar el cálculo de FPS
+
 calcularFPS();
 
-// Iniciar el cálculo de FPS
 
 
-// Puedes usar `fps` para ajustar la velocidad en función de la tasa de refresco
+
+
 
 let factorVel = 1;
 
 function ajustarVelocidad() {
    
-    if (fps < 30) { // Si los FPS son bajos, ralentiza el juego
+    if (fps < 30) { 
         factorVel = 1.5;
         masTempoIntro=0;
         //console.log("Hmm1");
-    } else if (fps >= 100) { // Si los FPS son altos, ajusta la velocidad
+    } else if (fps >= 100) { 
         factorVel = 0.7;
         masTempoIntro=4000;
         //console.log("Hmm2");
     } else {
-        factorVel = 1; // FPS normales
+        factorVel = 1; 
         masTempoIntro=0;
         //console.log("Hmm3");
     }
 }
 
-// Llama a `ajustarVelocidad` regularmente para ajustar el factor de velocidad
-setInterval(ajustarVelocidad, 500); // Ajusta cada segundo
+
+setInterval(ajustarVelocidad, 500); 
 
 
 
@@ -73,10 +73,10 @@ const params = new URLSearchParams(window.location.search);
 const encodedData = params.get("data");
 
 if (encodedData) {
-    // Decodificar el Base64 a JSON
+    
     const decodedData = JSON.parse(atob(encodedData));
 
-    // Ahora puedes acceder a los datos
+    
      dineroActL = decodedData.dinero;
      vidaL = decodedData.vida;
      numMaxBalasL = decodedData.numBalas;
@@ -85,7 +85,7 @@ if (encodedData) {
      rafaL = decodedData.rafa;
      nvLlega = decodedData.nvAct;
 
-    // Usa los datos como necesites
+    
 }
 
 
@@ -173,15 +173,15 @@ vida = vidaL;
 
 
 //MODAL GANASTE
-// Función para abrir el modal con animación
+
 function abrirModalFin() {
     const overlay = document.getElementById('modalOverlayFin');
     const content = document.getElementById('modalContentFin');
     
-    // Verificamos si los elementos existen antes de intentar manipularlos
+    
     if (overlay && content) {
-        overlay.classList.add('show');   // Añadir la clase 'show' al overlay para mostrarlo
-        content.classList.add('show');   // Añadir la clase 'show' al contenido del modal para mostrarlo
+        overlay.classList.add('show');   
+        content.classList.add('show');   
     } else {
         console.error('No se pudo encontrar el modal o su contenido.');
     }
@@ -189,28 +189,28 @@ function abrirModalFin() {
 
 
 
-// Función para ocultar el modal con animación
+
 function ocultarModalFin() {
     const overlay = document.getElementById('modalOverlayFin');
     const content = document.getElementById('modalContentFin');
     
-    content.classList.remove('show'); // Quita la clase 'show' del contenido para animación de salida
-    overlay.classList.remove('show'); // Quita la clase 'show' del overlay
+    content.classList.remove('show'); 
+    overlay.classList.remove('show'); 
 
     setTimeout(() => {
-        overlay.style.display = 'none'; // Después de la transición, oculta el modal
-    }, 500); // Asegúrate de que este tiempo coincida con la duración de la animación
+        overlay.style.display = 'none'; 
+    }, 500); 
 }
 
-// Eventos de los botones
+
 function volverAlMenuFin() {
     console.log("Volver al menú presionado");
     ocultarModalFin();
     
-    // Obtener el texto del botón presionado
-    const boton = event.target; // Captura el botón que disparó el evento
+    
+    const boton = event.target; 
 
-    //window.location.href = "index.html"; // Redirigir al menú principal
+    //window.location.href = "index.html"; 
 
     const data = {
         tempus: tiempoPasar
@@ -218,25 +218,25 @@ function volverAlMenuFin() {
 
     const encodedData = btoa(JSON.stringify(data));
 
-    // Redirigir a la nueva URL con los datos encriptados
+    
     const url = `subirPunta.html?data=${encodedData}`;
     window.location.href = url;
 
 }
 
-// function siguienteNivelFin() {
-//     console.log("Siguiente nivel presionado");
-//     ocultarModalFin();
 
-//     // Obtener el texto del botón presionado
-//     const boton = event.target; // Captura el botón que disparó el evento
 
-//     if (boton.textContent === "Siguiente nivel") {
-//         const url = `boss1.html?dinero=${dineroAct}&vida=${vida}&numBalas=${numMaxBalas}&velRecarga=${velRecarga}&mejorRecar=${mejorRecar}&rafa=${rafa}&nvAct=3`;
 
-//         window.location.href = url; // Redirigir al siguiente nivel con parámetros
-//     }
-// }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -515,20 +515,20 @@ document.addEventListener('keyup', (event) => {
 
 
 function moverNave() {
-    // Movimiento a la izquierda con 'ArrowLeft' o 'A'
+    
     if ((teclas['ArrowLeft'] || teclas['a'] || teclas['A']) && nave.x > 0) {
         nave.x -= nave.speed * factorVel;
     }
-    // Movimiento a la derecha con 'ArrowRight' o 'D'
+    
     if ((teclas['ArrowRight'] || teclas['d'] || teclas['D']) && nave.x + nave.width < canvas.width) {
         nave.x += nave.speed * factorVel;
     }
-    // Disparo con 'Espacio' o 'Enter'
+    
     if ((teclas[' '] || teclas['Enter']) && !teclas.shoot) {
         crearDisparo();
         teclas.shoot = true;
     }
-    // Resetea el disparo al soltar la tecla 'Espacio' o 'Enter'
+    
     if (!teclas[' '] && !teclas['Enter']) {
         teclas.shoot = false;
     }
@@ -764,7 +764,7 @@ function detectarColision() {
             sonidoPerdidaVidaRep.play();
 
             if (vidaJefeP2D <= 0) {
-                estaVidaP1D = false;
+                estaVidaP2D = false;
                 console.log("Has destruido la Pata Derecha 2 del jefe!");
             }
         }        
@@ -927,17 +927,13 @@ function mostrarPantallaFin() {
 
 
 function reiniciarJuego(event) {
-    // Convertir la tecla a minúsculas
-    const tecla = event.key.toLowerCase();
-    
-    if (tecla === 'z' && juegoEnPausa) {
+    if (event.key === 'z' && juegoEnPausa) {
         location.reload(); 
     }
-    if (tecla === 'x' && juegoEnPausa) {
+    if (event.key === 'x' && juegoEnPausa) {
         location.replace("index.html");
     }
 }
-
 
 
 
@@ -1417,7 +1413,7 @@ function moverDisparosJefe() {
 
 
 function dibujarDisparosJefe() {
-    ctx.fillStyle = 'green'; 
+    ctx.fillStyle = 'cyan'; 
     disparosJefe.forEach(disparo => {
         ctx.fillRect(disparo.x, disparo.y, disparo.width, disparo.height); 
     });
@@ -1456,11 +1452,11 @@ function dibujarMuerteJefe(x, y, rutaImagen, ancho, alto) {
     const imagenExplosión = new Image();
     imagenExplosión.src = rutaImagen;
 
-    // Verifica si la imagen está cargada
+    
     if (imagenExplosión.complete) {
         ctx.drawImage(imagenExplosión, x, y, ancho, alto);
     } else {
-        // Si la imagen no está cargada, espera a que lo esté
+        
         imagenExplosión.onload = () => {
             ctx.drawImage(imagenExplosión, x, y, ancho, alto);
         };
@@ -1919,48 +1915,48 @@ function reanudarDisparosDesdePatas() {
 
 //INTRO NUEVA
 
-// Variables globales para controlar los tiempos
-let tiempoColumna1_intro = 100;  // 1 segundo
-let tiempoColumna2_intro = 1700;  // 2 segundos
-let tiempoColumna3_intro = 3000;  // 3 segundos
-let tiempoCierre_intro = 6000;    // 4 segundos para cerrar el modal
+
+let tiempoColumna1_intro = 100;  
+let tiempoColumna2_intro = 1700;  
+let tiempoColumna3_intro = 3000;  
+let tiempoCierre_intro = 6000;    
 
 function abrirModalIntro() {
     introBoss.play();
     const modal = document.getElementById("modalOverlayIntro");
 
-    // Mostrar el modal
+    
     modal.style.display = "flex";
     modal.style.opacity = 1; 
     modal.style.transform = "scale(1)"; 
 
-    // Mostrar la primera columna después de "tiempoColumna1_intro"
+    
     setTimeout(() => {
         document.getElementById("columna1_intro").style.opacity = 1;
         document.getElementById("columna1_intro").style.transform = "translateY(0)";
-        document.querySelector("#columna1_intro .imagen_columna_intro").style.opacity = 1; // Mostrar la imagen
-        document.querySelector("#columna1_intro .texto_columna_intro").style.opacity = 1; // Mostrar el texto
-        document.querySelector("#columna1_intro .imagen-pequeña_intro").style.opacity = 1; // Mostrar la imagen pequeña
+        document.querySelector("#columna1_intro .imagen_columna_intro").style.opacity = 1; 
+        document.querySelector("#columna1_intro .texto_columna_intro").style.opacity = 1; 
+        document.querySelector("#columna1_intro .imagen-pequeña_intro").style.opacity = 1; 
     }, tiempoColumna1_intro);
 
-    // Mostrar la segunda columna después de "tiempoColumna2_intro"
+    
     setTimeout(() => {
         document.getElementById("columna2_intro").style.opacity = 1;
         document.getElementById("columna2_intro").style.transform = "translateY(0)";
-        document.querySelector("#columna2_intro .texto_columna_intro").style.opacity = 1; // Mostrar el texto
-        //document.querySelector("#columna2_intro .imagen-pequeña_intro").style.opacity = 1; // Mostrar la imagen pequeña
+        document.querySelector("#columna2_intro .texto_columna_intro").style.opacity = 1; 
+        //document.querySelector("#columna2_intro .imagen-pequeña_intro").style.opacity = 1; 
     }, tiempoColumna2_intro);
 
-    // Mostrar la tercera columna después de "tiempoColumna3_intro"
+    
     setTimeout(() => {
         document.getElementById("columna3_intro").style.opacity = 1;
         document.getElementById("columna3_intro").style.transform = "translateY(0)";
-        document.querySelector("#columna3_intro .imagen_columna_intro").style.opacity = 1; // Mostrar la imagen
-        document.querySelector("#columna3_intro .texto_columna_intro").style.opacity = 1; // Mostrar el texto
-        document.querySelector("#columna3_intro .imagen-pequeña_intro").style.opacity = 1; // Mostrar la imagen pequeña
+        document.querySelector("#columna3_intro .imagen_columna_intro").style.opacity = 1; 
+        document.querySelector("#columna3_intro .texto_columna_intro").style.opacity = 1; 
+        document.querySelector("#columna3_intro .imagen-pequeña_intro").style.opacity = 1; 
     }, tiempoColumna3_intro);
 
-    // Cerrar el modal después de "tiempoCierre_intro"
+    
     setTimeout(() => {
         ocultarModalIntro();
     }, tiempoCierre_intro);
@@ -1989,12 +1985,12 @@ const risaSound = new Audio('mp3/bossLaugh.mp3');
 
 function actualizarJuego() {
     
-    // if (!yaIntro) {
-    //     console.log("Jefe");
-    //     //mostrarIntro(); 
-    //     abrirModalIntro();
-    //     return;
-    // }
+    
+    
+    
+    
+    
+    
 
 
     ostNivel.play();
@@ -2005,7 +2001,7 @@ function actualizarJuego() {
     
     
     if (puntaje >= 200 && !yaAcabo) {
-        juegoEnPausa = true; // Detenemos el juego
+        juegoEnPausa = true; 
         yaAcabo = true;
     
         pausarGeneradores();
@@ -2021,14 +2017,14 @@ function actualizarJuego() {
         muerteJe.play();
         detenerCronometro();
     
-        // El juego se detiene aquí, pero sin bloquear el flujo
+        
         
         
     
         setTimeout(function() {
-            // Aquí está el código que se ejecutará después de 3 segundos
             
-            // Fin de la pausa, el juego continúa
+            
+            
             dibujarNave();
             dibujarDisparos();
             dibujarEnemigos();
@@ -2040,31 +2036,31 @@ function actualizarJuego() {
             document.getElementById("tuPunta").innerHTML = "¡Tu tiempo en matar al jefe fue de: " + tiempoPasar + " !";
     
             abrirModalFin();
-        }, 3000); // Espera 3 segundos antes de ejecutar lo siguiente
+        }, 3000); 
     }
     
 
-    // if(yaMas==false && puntaje>50){
-    //     console.log("Amuenta")
-    //     yaMas=true;
-    //     tempSpawn1=tempSpawn1-1000;
-    //     cambiarTempSpawn(tempSpawn1);
-    //     temSpawn2=temSpawn2-1000;
-    //     cambiarTempSpawn2(temSpawn2)
-    //     danger.play();
+    
+    
+    
+    
+    
+    
+    
+    
 
-    // }
+    
 
-    // if(yaMas2==false && puntaje>100){
-    //     console.log("Amuenta")
-    //     yaMas2=true;
-    //     tempSpawn1=tempSpawn1-500;
-    //     cambiarTempSpawn(tempSpawn1);
-    //     temSpawn2=temSpawn2-1000;
-    //     cambiarTempSpawn2(temSpawn2)
-    //     danger.play();
+    
+    
+    
+    
+    
+    
+    
+    
 
-    // }
+    
 
     if (!juegoEnPausa && !complet) { 
         moverNave();
@@ -2124,20 +2120,20 @@ function actualizarJuego() {
 
             //pausarMovimientoJefe();
 
-            // pausarMovimientoJefeP1D();
-            // pausarMovimientoJefeP2D();
-            // pausarMovimientoJefeP1Iz();
-            // pausarMovimientoJefeP2Iz();
+            
+            
+            
+            
             //pausarDisparosDesdePatas();
 
 
 
 
 
-            let cronometro; // Variable para almacenar el intervalo
-            let tiempo = 0; // Tiempo en segundos
+            let cronometro; 
+            let tiempo = 0; 
             let tiempoPasar="";
-            // Función para dar formato hh:mm:ss
+            
             function formatearTiempo(segundos) {
                 const horas = Math.floor(segundos / 3600);
                 const minutos = Math.floor((segundos % 3600) / 60);
@@ -2145,22 +2141,22 @@ function actualizarJuego() {
                 return `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}:${String(segundosRestantes).padStart(2, '0')}`;
             }
             
-            // Función para iniciar el cronómetro
+            
             function iniciarCronometro() {
                 cronometro = setInterval(() => {
                     tiempo++;
-                    console.log(formatearTiempo(tiempo)); // Puedes mostrarlo en la consola o actualizar un elemento en la página
+                    console.log(formatearTiempo(tiempo)); 
                 }, 1000);
             }
             
-            // Función para detener el cronómetro
+            
             function detenerCronometro() {
                 clearInterval(cronometro);
                 tiempoPasar= formatearTiempo(tiempo);
                 console.log(tiempoPasar);
             }
             
-            // Para reiniciar el cronómetro
+            
             function reiniciarCronometro() {
                 clearInterval(cronometro);
                 tiempo = 0;
@@ -2170,9 +2166,9 @@ function actualizarJuego() {
             
 
 function iniciarJuego() {
-    abrirModalIntro(); // Llama la animación de la intro al principio
+    abrirModalIntro(); 
     
-    // Llamar a "actualizarJuego" después de 6 segundos (6000 milisegundos)
+    
     setTimeout(() => {
         //iniciarCronometro();
         iniciarCronometro();
@@ -2186,11 +2182,11 @@ function iniciarJuego() {
         cargarImagenJefeP1Iz();
         cargarImagenJefeP2Iz();
         risaSound.play();
-        actualizarJuego(); // Iniciar el juego después de 6 segundos
-    }, 6000); // 6 segundos de espera antes de comenzar el juego
+        actualizarJuego(); 
+    }, 6000); 
 }
 
-// Llamar a iniciarJuego cuando cargue el código
+
 iniciarJuego();
 
 

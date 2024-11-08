@@ -13,28 +13,28 @@ let nvActual="1";
 //--VIDA---------------------------------------------------
 let vida = 5;
 const imagenVida = new Image();
-imagenVida.src = 'img/cora.png'; // Coloca aquí la ruta de tu imagen
+imagenVida.src = 'img/cora.png'; 
 function dibujarVidas() {
     ctx.font = '26px Arial';
     ctx.fillStyle = '#fff';
-    ctx.fillText('Vida', canvas.width - 100, canvas.height - 60); // Título
+    ctx.fillText('Vida', canvas.width - 100, canvas.height - 60); 
 
-    const espacioEntreVidas = 25; // Espacio entre los corazones
-    const anchoVida = 20; // Ancho de cada corazón
-    const maxVidasPorFila = 5; // Número máximo de vidas por fila
-    let fila = 0; // Contador de filas
+    const espacioEntreVidas = 25; 
+    const anchoVida = 20; 
+    const maxVidasPorFila = 5; 
+    let fila = 0; 
 
     for (let i = 0; i < vida; i++) {
-        // Si i excede el número de vidas por fila, incrementamos la fila
+        
         if (i > 0 && i % maxVidasPorFila == 0) {
             fila++;
         }
 
-        // Calcular la posición X y Y de cada corazón
-        const x = canvas.width - 150 + (i % maxVidasPorFila) * espacioEntreVidas; // X
-        const y = canvas.height - 30 + fila * (anchoVida + 10); // Y
+        
+        const x = canvas.width - 150 + (i % maxVidasPorFila) * espacioEntreVidas; 
+        const y = canvas.height - 30 + fila * (anchoVida + 10); 
 
-        // Dibuja el corazón en la posición calculada
+        
         ctx.drawImage(imagenVida, x, y - 20, anchoVida, anchoVida);
     }
 }
@@ -50,7 +50,7 @@ function manejarClick(event) {
     const mouseX = event.offsetX;
     const mouseY = event.offsetY;
 
-    // Dibuja los botones de la tienda para verificar en cuál se hizo clic
+    
     const botones = ["Munición", "Reparar", "Recarga", "Rafaga"];
     const espacioEntreBotones = 10;
     const anchoBoton = 100;
@@ -59,39 +59,39 @@ function manejarClick(event) {
     botones.forEach((texto, i) => {
         const x = (canvas.width - (anchoBoton * botones.length + espacioEntreBotones * (botones.length - 1))) / 2 + i * (anchoBoton + espacioEntreBotones);
         
-        // Verifica si el mouse está sobre el botón
+        
         const estaSobreBoton = mouseX >= x && mouseX <= x + anchoBoton && mouseY >= yBoton && mouseY <= yBoton + 40;
 
         if (estaSobreBoton) {
             if (texto === "Munición") {
-                // Lógica para el botón Munición
-                if (dineroAct >= 50 && numMaxBalas < 6) {
-                    dineroAct -= 50; // Descuenta el dinero
-                    numMaxBalas += 1; // Incrementa el número máximo de balas
-                    console.log("Compraste una mejora de munición");
-                    ctx.fillStyle = 'yellow'; // Color de fondo
-                    ctx.fillRect(10, 10, 150, 30); // Rectángulo para el fondo
                 
-                    // Dibuja el texto de dinero
-                    ctx.fillStyle = 'black'; // Color del texto
-                    ctx.font = '16px Arial'; // Estilo de fuente
+                if (dineroAct >= 50 && numMaxBalas < 6) {
+                    dineroAct -= 50; 
+                    numMaxBalas += 1; 
+                    console.log("Compraste una mejora de munición");
+                    ctx.fillStyle = 'yellow'; 
+                    ctx.fillRect(10, 10, 150, 30); 
+                
+                    
+                    ctx.fillStyle = 'black'; 
+                    ctx.font = '16px Arial'; 
                     ctx.fillText("Dinero: $" + dineroAct, 15, 30);                    
                 } else {
                     console.log("No tienes suficiente dinero o el máximo de balas ya se ha alcanzado.");
                 }
             }
             if (texto === "Reparar") {
-                // Lógica para el botón Munición
-                if (dineroAct >= 25 && vida < 9) {
-                    dineroAct -= 25; // Descuenta el dinero
-                    vida += 1; // Incrementa el número máximo de balas
-                    console.log("Compraste una mejora de munición");
-                    ctx.fillStyle = 'yellow'; // Color de fondo
-                    ctx.fillRect(10, 10, 150, 30); // Rectángulo para el fondo
                 
-                    // Dibuja el texto de dinero
-                    ctx.fillStyle = 'black'; // Color del texto
-                    ctx.font = '16px Arial'; // Estilo de fuente
+                if (dineroAct >= 25 && vida < 9) {
+                    dineroAct -= 25; 
+                    vida += 1; 
+                    console.log("Compraste una mejora de munición");
+                    ctx.fillStyle = 'yellow'; 
+                    ctx.fillRect(10, 10, 150, 30); 
+                
+                    
+                    ctx.fillStyle = 'black'; 
+                    ctx.font = '16px Arial'; 
                     ctx.fillText("Dinero: $" + dineroAct, 15, 30);                    
                 } else {
                     console.log("No tienes suficiente dinero o el máximo de balas ya se ha alcanzado.");
@@ -99,19 +99,19 @@ function manejarClick(event) {
             }      
             
             if (texto === "Recarga") {
-                // Lógica para el botón Munición
+                
                 if (dineroAct >= 150 && mejorRecar < 3) {
-                    dineroAct -= 150; // Descuenta el dinero
+                    dineroAct -= 150; 
                     mejorRecar++;
                     velRecarga=velRecarga-125;
                     cambiarVelRecarga(velRecarga)
                     console.log("Compraste una mejora de munición");
-                    ctx.fillStyle = 'yellow'; // Color de fondo
-                    ctx.fillRect(10, 10, 150, 30); // Rectángulo para el fondo
+                    ctx.fillStyle = 'yellow'; 
+                    ctx.fillRect(10, 10, 150, 30); 
                 
-                    // Dibuja el texto de dinero
-                    ctx.fillStyle = 'black'; // Color del texto
-                    ctx.font = '16px Arial'; // Estilo de fuente
+                    
+                    ctx.fillStyle = 'black'; 
+                    ctx.font = '16px Arial'; 
                     ctx.fillText("Dinero: $" + dineroAct, 15, 30);                    
                 } else {
                     console.log("No tienes suficiente dinero o el máximo de balas ya se ha alcanzado.");
@@ -119,19 +119,19 @@ function manejarClick(event) {
             }        
             
             if (texto === "Rafaga") {
-                // Lógica para el botón Munición
+                
                 if (dineroAct >= 200 && rafa < 3) {
-                    dineroAct -= 200; // Descuenta el dinero
+                    dineroAct -= 200; 
                     
                     rafa=rafa+1;
                     
                     console.log("Compraste una mejora de munición");
-                    ctx.fillStyle = 'yellow'; // Color de fondo
-                    ctx.fillRect(10, 10, 150, 30); // Rectángulo para el fondo
+                    ctx.fillStyle = 'yellow'; 
+                    ctx.fillRect(10, 10, 150, 30); 
                 
-                    // Dibuja el texto de dinero
-                    ctx.fillStyle = 'black'; // Color del texto
-                    ctx.font = '16px Arial'; // Estilo de fuente
+                    
+                    ctx.fillStyle = 'black'; 
+                    ctx.font = '16px Arial'; 
                     ctx.fillText("Dinero: $" + dineroAct, 15, 30);                    
                 } else {
                     console.log("No tienes suficiente dinero o el máximo de balas ya se ha alcanzado.");
@@ -301,32 +301,32 @@ function dibujaEnTienda(){
 
 let enTienda = false; 
 
-let botonSeleccionado = null; // Para rastrear qué botón está hovered
-let textoAyuda = ""; // Texto que se mostrará al pasar el ratón sobre un botón
+let botonSeleccionado = null; 
+let textoAyuda = ""; 
 
 
 function mostrarMenuTienda(mouseX, mouseY) {
 
-    // Dibuja un rectángulo oscuro en todo el canvas
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; // Color negro con transparencia
+    
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; 
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Dibuja el fondo amarillo para el texto de dinero
-    ctx.fillStyle = 'yellow'; // Color de fondo
-    ctx.fillRect(10, 10, 150, 30); // Rectángulo para el fondo
+    
+    ctx.fillStyle = 'yellow'; 
+    ctx.fillRect(10, 10, 150, 30); 
 
-    // Dibuja el texto de dinero
-    ctx.fillStyle = 'black'; // Color del texto
-    ctx.font = '16px Arial'; // Estilo de fuente
-    ctx.fillText("Dinero: $" + dineroAct, 15, 30); // Dibuja el texto
+    
+    ctx.fillStyle = 'black'; 
+    ctx.font = '16px Arial'; 
+    ctx.fillText("Dinero: $" + dineroAct, 15, 30); 
 
-    // Título del menú
-    ctx.fillStyle = 'white'; // Color del texto
-    ctx.font = '24px Arial'; // Estilo de fuente
-    ctx.textAlign = 'center'; // Alinear el texto al centro
-    //ctx.fillText("~ Tienda los sueños rotos de Cuco ~", canvas.width / 2, 50); // Título centrado
+    
+    ctx.fillStyle = 'white'; 
+    ctx.font = '24px Arial'; 
+    ctx.textAlign = 'center'; 
+    //ctx.fillText("~ Tienda los sueños rotos de Cuco ~", canvas.width / 2, 50); 
 
-    // Dibuja los botones de la tienda
+    
     const botones = ["Munición", "Reparar", "Recarga", "Rafaga"];
     const espacioEntreBotones = 10;
     const anchoBoton = 100;
@@ -335,12 +335,12 @@ function mostrarMenuTienda(mouseX, mouseY) {
     botones.forEach((texto, i) => {
         const x = (canvas.width - (anchoBoton * botones.length + espacioEntreBotones * (botones.length - 1))) / 2 + i * (anchoBoton + espacioEntreBotones);
         
-        // Verifica si el mouse está sobre el botón
+        
         const estaSobreBoton = mouseX >= x && mouseX <= x + anchoBoton && mouseY >= yBoton && mouseY <= yBoton + 40;
 
         if (estaSobreBoton) {
-            ctx.fillStyle = 'lightgray'; // Color del botón cuando está hovered
-            botonSeleccionado = texto; // Almacena el texto del botón hovered
+            ctx.fillStyle = 'lightgray'; 
+            botonSeleccionado = texto; 
             if(texto==="Munición"){
                 textoAyuda="Aumenta la capacidad de munición (máximo 6). Cuesta $50";
 
@@ -359,29 +359,29 @@ function mostrarMenuTienda(mouseX, mouseY) {
                 textoAyuda="Doble tiro! mata dos bichos de un tiro. Cuesta $200";
             }            
         } else {
-            ctx.fillStyle = 'white'; // Color del botón normal
+            ctx.fillStyle = 'white'; 
         }
 
-        ctx.fillRect(x, yBoton, anchoBoton, 40); // Dibuja el botón
-        ctx.fillStyle = 'black'; // Color del texto
-        ctx.fillText(texto, x + anchoBoton / 2, yBoton + 25); // Dibuja el texto del botón
+        ctx.fillRect(x, yBoton, anchoBoton, 40); 
+        ctx.fillStyle = 'black'; 
+        ctx.fillText(texto, x + anchoBoton / 2, yBoton + 25); 
     });
 
-    // Dibuja el texto de ayuda si hay un botón seleccionado
+    
     if (botonSeleccionado) {
-        ctx.fillStyle = 'white'; // Color de fondo del texto de ayuda
-        ctx.fillRect(canvas.width / 2 - 500, 300, 1000, 40); // Fondo del texto
-        ctx.fillStyle = 'black'; // Color del texto
+        ctx.fillStyle = 'white'; 
+        ctx.fillRect(canvas.width / 2 - 500, 300, 1000, 40); 
+        ctx.fillStyle = 'black'; 
         ctx.font = '14px Arial';
-        ctx.fillText(textoAyuda, canvas.width / 2, 325); // Dibuja el texto de ayuda
+        ctx.fillText(textoAyuda, canvas.width / 2, 325); 
     }
 
-    // Botón para cerrar la tienda
-    ctx.fillStyle = 'white'; // Color del botón
-    ctx.fillRect((canvas.width - 390) / 2, 200, 400, 40); // Botón largo
-    ctx.fillStyle = 'black'; // Color del texto
+    
+    ctx.fillStyle = 'white'; 
+    ctx.fillRect((canvas.width - 390) / 2, 200, 400, 40); 
+    ctx.fillStyle = 'black'; 
     ctx.font = '24px Arial';
-    ctx.fillText("Presiona 'T' para cerrar la tienda", canvas.width / 2, 225); // Mensaje del botón
+    ctx.fillText("Presiona 'T' para cerrar la tienda", canvas.width / 2, 225); 
 
 
 
@@ -410,13 +410,13 @@ function dibujarDinero() {
 //MODALOSO PARA LA TIENDA
 function abrirModal() {
     const modal = document.getElementById('modal');
-    modal.style.display = 'flex'; // Mostrar el modal
+    modal.style.display = 'flex'; 
 }
 
-// Método para cerrar el modal
+
 function cerrarModal() {
     const modal = document.getElementById('modal');
-    modal.style.display = 'none'; // Ocultar el modal
+    modal.style.display = 'none'; 
 }
 
 
@@ -442,13 +442,13 @@ function mostrarTexto(texto) {
     }
 
     tooltip.textContent = textoAyuda;
-    tooltip.style.display = 'block'; // Mostrar el tooltip
+    tooltip.style.display = 'block'; 
 }
 
-// Método para ocultar el texto de ayuda
+
 function ocultarTexto() {
     const tooltip = document.getElementById('tooltip');
-    tooltip.style.display = 'none'; // Ocultar el tooltip
+    tooltip.style.display = 'none'; 
 }
 
 
